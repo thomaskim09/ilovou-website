@@ -1,0 +1,51 @@
+@import "../../../../../core/scss/variables";
+@import "../../../../../core/scss/mixins";
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.clear-icon {
+  position: relative;
+  top: 0.7em;
+  color: $GREY_ICON_WHITE;
+  cursor: pointer;
+}
+
+.remark_details {
+  position: relative;
+  bottom: 1em;
+}
+
+.space {
+  height: 4em;
+}
+
+.submit-button {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.8em 1.5em;
+  width: 7em;
+  border: none;
+  border-radius: 3em;
+  position: absolute;
+  bottom: 8em;
+  z-index: 2;
+  color: white;
+  background-color: $GRADIENT_TOP;
+  @include my-img-shadow();
+}
+
+.submit-button-inactive {
+  font-size: 1em;
+  padding: 0.8em 1.5em;
+  width: 7em;
+  border: none;
+  border-radius: 3em;
+  position: absolute;
+  bottom: 8em;
+  z-index: 2;
+}

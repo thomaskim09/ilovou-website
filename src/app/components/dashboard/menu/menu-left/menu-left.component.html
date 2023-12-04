@@ -1,0 +1,18 @@
+<mat-tab-group dynamicHeight [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)"
+  (selectedTabChange)='tabChange($event)'>
+  <mat-tab *ngFor="let tab of tabs; let i=index" [label]="tab">
+
+    <ng-container *ngIf="tab=='Settings'">
+      <app-m-l-setting></app-m-l-setting>
+    </ng-container>
+    <ng-container *ngIf='menuId'>
+      <ng-container *ngIf="tab=='Menu'">
+        <app-m-l-food></app-m-l-food>
+      </ng-container>
+      <ng-container *ngIf="tab=='Remarks'">
+        <app-m-l-remark></app-m-l-remark>
+      </ng-container>
+    </ng-container>
+
+  </mat-tab>
+</mat-tab-group>

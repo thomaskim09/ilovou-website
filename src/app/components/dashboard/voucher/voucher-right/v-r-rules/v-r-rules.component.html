@@ -1,0 +1,44 @@
+<div [formGroup]='form'>
+
+  <div fxLayout='column'>
+
+    <span class="card-title">Voucher Rules</span>
+
+    <ng-container *ngIf='form.value.customRuleDetails || form.value.ruleDetails'>
+      <div class='rules-container'>
+        <ng-container *ngFor='let item of form.value.customRuleDetails'>
+          <div fxLayout='row'>
+            <div class='rules' fxFlex='92'>{{item}}</div>
+            <mat-icon tappable class='list-icon' (click)='removeCustomRule(item)'>delete</mat-icon>
+          </div>
+        </ng-container>
+        <ng-container *ngFor='let item of form.value.ruleDetails'>
+          <div fxLayout='row'>
+            <div class='rules' fxFlex='92'>{{item}}</div>
+            <mat-icon class='list-icon' (click)='removeRule(item)'>delete</mat-icon>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <mat-form-field floatLabel='never' fxFlex='grow'>
+      <mat-select formControlName="ruleDetails" placeholder="Maximum 6 rules recommended" [multiple]="true"
+        (focus)='hintSender(27)'>
+        <ngx-mat-select-search [formControl]="ruleFilterCtrl" [placeholderLabel]="'Search'"
+          [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+        <mat-option *ngFor="let rule of filteredRule | async" [value]="rule.name">
+          {{rule.name}}
+        </mat-option>
+      </mat-select>
+      <mat-hint *ngIf="checkRulesLength()">Recommend maximum 6 rules for better user experience</mat-hint>
+      <mat-hint *ngIf="checkRulesEmpty()">Voucher rules could protect seller and buyer</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field floatLabel='never' fxFlex='grow'>
+      <input matInput placeholder="Custom Rules" formControlName='customRuleInput' (change)='customRuleChange()'
+        (focus)='hintSender(28)' />
+    </mat-form-field>
+
+  </div>
+
+</div>

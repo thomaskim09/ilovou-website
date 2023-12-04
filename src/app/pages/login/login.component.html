@@ -1,0 +1,63 @@
+<div class='body'>
+
+
+  <button mat-icon-button class='homeButton' (click)="goToHome()">
+    <mat-icon>home</mat-icon>
+  </button>
+
+  <div fxLayout='row'>
+    <div fxFlex='60' fxFlex.sm="80" fxFlex.xs="80" class='card'>
+
+      <div fxLayout='row' fxLayout.sm="column" fxLayout.xs="column">
+        <div fxFlex='40' class='left-content'>
+          <span class='title'>Sign In</span>
+
+          <form [formGroup]="form" class='form' autocomplete="off">
+
+            <mat-form-field floatLabel='never' class="fullWidthInput">
+              <input matInput placeholder="Username" formControlName='username' [attr.maxlength]='15' />
+              <mat-error *ngFor='let validation of validation_messages.username'>
+                <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'username')">
+                  {{validation.message}} </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field floatLabel='never' class="fullWidthInput">
+              <input matInput type='password' placeholder="Password" formControlName='password' [attr.maxlength]='15' />
+              <mat-error *ngFor='let validation of validation_messages.password'>
+                <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'password')">
+                  {{validation.message}} </mat-error>
+              </mat-error>
+            </mat-form-field>
+
+            <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" (reset)="handleReset()" (expire)="handleExpire()"
+              (load)="handleLoad()" (success)="handleSuccess($event)" useGlobalDomain="false" [size]="size" [hl]="hl"
+              [theme]="theme" formControlName="recaptcha">
+            </ngx-recaptcha2>
+            <button
+              [ngClass]="{'update-button': form.valid && !needSpinner, 'update-button-inactive': !form.valid || needSpinner}"
+              (click)="login()" [disabled]="!form.valid || needSpinner">
+              <ng-container *ngIf='!needSpinner'>
+                Log In
+              </ng-container>
+              <ng-container *ngIf='needSpinner'>
+                <mat-spinner class='spinner' diameter=19></mat-spinner>
+              </ng-container>
+            </button>
+
+          </form>
+        </div>
+
+        <div fxFlex='60' class='right-image' *ngIf='!isMobile'>
+          <div fxLayout='column'>
+            <span class='image-text' [innerHTML]='textContent'></span>
+            <span class='image-small-text'>- ilovou</span>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>

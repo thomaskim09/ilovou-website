@@ -1,0 +1,121 @@
+@import "../../../../../core/scss/variables";
+@import "../../../../../core/scss/mixins";
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.edit-button-active {
+  margin-top: 1.4em;
+  color: $GRADIENT_TOP;
+}
+
+.edit-button {
+  margin-top: 1.4em;
+  color: $GREY_ICON_WHITE;
+}
+
+.edit2-button {
+  position: absolute;
+  right: 1em;
+  top: 2em;
+  color: $GREY_ICON_WHITE;
+}
+
+.edit3-button {
+  position: absolute;
+  right: 0.5em;
+  top: 2em;
+  color: $GREY_ICON_WHITE;
+}
+
+.edit4-button {
+  margin-top: 0.6em;
+  color: $GREY_ICON_WHITE;
+}
+
+.edit-icon {
+  font-size: 2.3em;
+}
+
+.orderNumber {
+  position: relative;
+  top: 1.1em;
+  margin-right: 1em;
+  color: $GREY_ICON_WHITE_DARKER;
+}
+
+.list-item {
+  margin-top: 0.25em;
+  margin-bottom: 0.5em;
+  padding: 1em 1em;
+  border-radius: 5px;
+  background-color: $GREY_BODY_BACKGROUND;
+  position: relative;
+  cursor: grab;
+}
+
+.item-title-box {
+  width: 68%;
+  @include text-truncate();
+}
+
+.item-end {
+  position: absolute;
+  right: 1em;
+}
+
+.list-icon {
+  position: relative;
+  top: 0.7em;
+  right: 0.3em;
+  color: $GREY_ICON_WHITE;
+  cursor: pointer;
+}
+
+.list2-icon {
+  position: relative;
+  top: 0.65em;
+  right: 0.3em;
+  color: $GREY_ICON_WHITE;
+  cursor: pointer;
+}
+
+.toggleHide {
+  position: relative;
+  top: 1em;
+  margin-left: 1.5em;
+}
+
+.tabContent {
+  margin-top: 1em;
+}
+
+.submit-button {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.8em 1.5em;
+  margin: 2em 0 1em 1em;
+  width: 15em;
+  border-radius: 3em;
+  color: white;
+  background-color: $GRADIENT_TOP;
+  border: none;
+  z-index: 2;
+  @include my-img-shadow();
+}
+
+.submit-button-inactive {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 0.8em 1.5em;
+  margin: 2em 0 1em 1em;
+  width: 15em;
+  border-radius: 3em;
+  color: white;
+  border: none;
+  z-index: 2;
+}

@@ -1,0 +1,16 @@
+<ng-container *ngIf="data">
+  <div fxLayout='row'>
+    <span class='title' [innerHTML]='data.title'></span>
+  </div>
+  <div fxLayout='row'>
+    <span class='message' [innerHTML]='data.message'></span>
+  </div>
+  <div fxLayout='row' fxLayoutGap="1em" class='button-row'>
+    <ng-container *ngIf='data.noButton'>
+      <button class='noButton' [mat-dialog-close]="'no'">{{data.noButton}}</button>
+    </ng-container>
+    <ng-container *ngIf='data.yesButton'>
+      <button class='yesButton' [mat-dialog-close]="'yes'" cdkFocusInitial>{{data.yesButton}}</button>
+    </ng-container>
+  </div>
+</ng-container>

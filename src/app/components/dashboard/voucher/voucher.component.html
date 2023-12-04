@@ -1,0 +1,25 @@
+<div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="0.5em">
+
+  <div fxFlex="35" class="card-container">
+    <app-voucher-left></app-voucher-left>
+  </div>
+
+  <ng-container *ngIf='needVoucherRight'>
+    <ng-container *ngIf="voucherSelected !== 'new'">
+      <div fxFlex="35" class="card-container">
+        <app-voucher-right-view></app-voucher-right-view>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="voucherSelected === 'new'">
+      <div fxFlex="35" class="card-container">
+        <app-voucher-right></app-voucher-right>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <div fxFlex="20" class="hint-card-container">
+    <app-hint [form]='form'></app-hint>
+  </div>
+
+</div>

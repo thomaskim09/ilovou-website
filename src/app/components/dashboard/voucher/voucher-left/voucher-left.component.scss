@@ -1,0 +1,105 @@
+@import "../../../../core/scss/variables";
+@import "../../../../core/scss/mixins";
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.edit-button-active {
+  position: relative;
+  bottom: 0.2em;
+  color: $GRADIENT_TOP;
+}
+
+.edit-button {
+  position: relative;
+  bottom: 0.2em;
+  color: $GREY_ICON_WHITE;
+}
+
+.container {
+  margin-top: 2em;
+  height: 68vh;
+  overflow: auto;
+  padding-right: 0.5em;
+  overflow-x: hidden;
+}
+
+.orderNumber {
+  position: relative;
+  top: 1.2em;
+  margin-right: 1em;
+  color: $GREY_ICON_WHITE_DARKER;
+}
+
+.list-item {
+  margin-top: 0.25em;
+  margin-bottom: 0.5em;
+  padding: 1em 1em;
+  border-radius: 5px;
+  background-color: $GREY_BODY_BACKGROUND;
+  position: relative;
+  cursor: grab;
+}
+
+.item-title-box {
+  width: 68%;
+  max-width: 68%;
+  @include text-truncate();
+}
+
+.item-end {
+  position: absolute;
+  right: 1em;
+}
+
+.toggleHide {
+  position: relative;
+  top: 1em;
+  margin-left: 1.5em;
+}
+
+.mat-slide-toggle-bar {
+  background-color: $GREY_ICON_WHITE !important;
+}
+
+.list-icon {
+  position: relative;
+  top: 0.7em;
+  color: $GREY_ICON_WHITE;
+  cursor: pointer;
+}
+
+.submit-button {
+  font-size: 1em;
+  padding: 0.8em 1.5em;
+  width: 10em;
+  background-color: $GRADIENT_TOP;
+  border-radius: 3em;
+  @include my-img-shadow();
+  position: absolute;
+  bottom: 8em;
+  color: white;
+  font-weight: bold;
+  border: none;
+  z-index: 2;
+}
+
+.submit-button-inactive {
+  font-size: 1em;
+  padding: 0.8em 1.5em;
+  width: 10em;
+  border-radius: 3em;
+  position: absolute;
+  bottom: 8em;
+  color: white;
+  font-weight: bold;
+  border: none;
+  z-index: 2;
+}
+
+.spinner {
+  position: relative;
+  left: 44%;
+}

@@ -1,0 +1,183 @@
+<div [formGroup]='form'>
+
+  <span class="card-title">Vouchers Details</span>
+
+  <div class='container'>
+    <div fxLayout="row" fxLayout.sm="row" fxLayout.xs="column" fxLayoutGap="2.5em" fxLayoutGap.sm="0.5em">
+      <div fxLayout="column" fxFlex="46">
+        <mat-form-field floatLabel='never' class="voucherType">
+          <mat-select placeholder="Voucher's Type" formControlName="voucherType">
+            <ng-container *ngFor='let item of voucherTypeList'>
+              <mat-option value={{item.value}}>
+                {{item.name}}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error *ngFor='let validation of validation_messages.voucherType'>
+            <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'voucherType')">
+              {{validation.message}} </mat-error>
+          </mat-error>
+        </mat-form-field>
+
+        <ng-container *ngIf="form.controls.voucherType.value === 'SV'">
+          <mat-form-field floatLabel='never' class="suitablePax">
+            <span matSuffix>Person &nbsp;</span>
+            <input type="number" matInput placeholder="Suitable Pax" formControlName='suitablePax'
+              (focus)="hintSender(6)" />
+            <mat-error *ngFor='let validation of validation_messages.suitablePax'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'suitablePax')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="form.controls.voucherType.value === 'QV'">
+          <mat-form-field floatLabel='never'>
+            <span matSuffix>Unit &nbsp;</span>
+            <input type="number" matInput placeholder="Quantity" formControlName='quantityUnit'
+              (focus)="hintSender(7)" />
+            <mat-error *ngFor='let validation of validation_messages.quantityUnit'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'quantityUnit')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <ng-container *ngIf="form.controls.voucherType.value === 'CV'">
+          <mat-form-field floatLabel='never'>
+            <span matPrefix>RM &nbsp;</span>
+            <input type="number" matInput placeholder="Minimum spend" formControlName='minimumSpend'
+              (focus)="hintSender(7)" />
+            <mat-error *ngFor='let validation of validation_messages.minimumSpend'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'minimumSpend')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+
+        <ng-container *ngIf="form.controls.voucherType.value === 'MV'">
+          <mat-form-field floatLabel='never'>
+            <span matSuffix>Unit &nbsp;</span>
+            <input type="number" matInput placeholder="Limit Per Day" formControlName='limitPerDay'
+              (focus)="hintSender(39)" />
+            <mat-error *ngFor='let validation of validation_messages.limitPerDay'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'limitPerDay')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+      <div fxLayout="column" (mouseenter)="imageHintMessage()">
+        <label>Voucher Image</label>
+        <ng-container *ngIf='!form.controls.voucherImage.value'>
+          <div tappable class="upload-box-empty" (click)="showImageCropModal()">
+            <mat-icon class="upload-icon">file_upload</mat-icon>
+          </div>
+          <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+        </ng-container>
+
+        <ng-container *ngIf='form.controls.voucherImage.value'>
+          <img class='uploaded-image' [src]="form.controls.voucherImage.value" height="200">
+          <div class='image-box'>
+            <div tappable class="edit-icon-box" (click)="showImageCropModal()">
+              <mat-icon class="edit-icon">edit</mat-icon>
+            </div>
+          </div>
+          <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <div fxLayout="row">
+    <mat-form-field floatLabel='never' fxFlex='grow'>
+      <span matPrefix>{{form.value.prefix}} &nbsp;</span>
+      <span matSuffix>{{form.value.suffix}} &nbsp;</span>
+      <input matInput placeholder="Voucher's Name" formControlName='voucherName' (focus)="voucherNameHintMessage()" />
+      <mat-hint *ngIf="form.get('voucherName').value?.length > 24">Voucher's name might not be able to show all if too
+        long</mat-hint>
+      <mat-error *ngFor='let validation of validation_messages.voucherName'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'voucherName')">
+          {{validation.message}} </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="2em">
+    <mat-form-field floatLabel='never' fxFlex='46'>
+      <span matPrefix>RM &nbsp;</span>
+      <input type="number" matInput placeholder="Promotion Price" formControlName='newPrice'
+        (focus)="priceHintMessage()" />
+      <mat-error *ngFor='let validation of validation_messages.newPrice'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'newPrice')">{{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field floatLabel='never' fxFlex='46'>
+      <span matPrefix>RM &nbsp;</span>
+      <input type="number" matInput placeholder="Normal Price" formControlName='basePrice'
+        (focus)="priceHintMessage()" />
+      <mat-error *ngFor='let validation of validation_messages.basePrice'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'basePrice')">{{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="2em">
+    <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+      <mat-icon class='input-icon' matSuffix>event</mat-icon>
+      <input [matDatepicker]="myDatepicker" matInput [max]='maxVF' (focus)="setDate('VF')" placeholder="Start Date"
+        formControlName='validFrom' (focus)="myDatepicker.open(); hintSender(17);" onkeypress="return false;"
+        autocomplete="off">
+      <mat-datepicker #myDatepicker></mat-datepicker>
+      <mat-error *ngFor='let validation of validation_messages.validFrom'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'validFrom')">{{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+      <mat-icon class='input-icon' matSuffix>event</mat-icon>
+      <input [matDatepicker]="myDatepicker1" [min]="minVU" [max]='maxVU' (focus)="setDate('VU')" matInput
+        placeholder="Expiry Date" formControlName='validUntil' (focus)="myDatepicker1.open(); hintSender(18);"
+        onkeypress="return false;" autocomplete="off">
+      <mat-datepicker #myDatepicker1></mat-datepicker>
+      <mat-error *ngFor='let validation of validation_messages.validUntil'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'validUntil')">{{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row" fxLayoutGap="2em">
+    <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+      <span class='prefix' matPrefix>Start:</span>
+      <mat-icon class='input-icon' matSuffix (click)="openAtp('startTime')">access_time</mat-icon>
+      <input type='time' atp-time-picker arrowStyle="{'background': '#ff9566', 'color': 'white'}" matInput
+        (focus)='hintSender(19)' placeholder="Start Time" formControlName="startTime" onkeypress="return false;"
+        autocomplete="off">
+      <mat-error *ngFor='let validation of validation_messages.startTime'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'startTime')">{{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+      <span class='prefix' matPrefix>End:</span>
+      <mat-icon class='input-icon' matSuffix (click)="openAtp('endTime')">access_time</mat-icon>
+      <input type='time' atp-time-picker arrowStyle="{'background': '#ff9566', 'color': 'white'}"
+        (focus)='hintSender(20)' matInput placeholder="Close Time" formControlName="endTime" onkeypress="return false;"
+        autocomplete="off">
+      <mat-error *ngFor='let validation of validation_messages.endTime'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'endTime')">{{validation.message}}
+        </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+
+</div>

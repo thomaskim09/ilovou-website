@@ -1,0 +1,215 @@
+<form [formGroup]='form' autocomplete="off">
+
+  <div fxLayout='column' fxLayoutGap='0.9em' class='content'>
+
+    <span class="card-title">Main Switch</span>
+
+    <mat-checkbox fxFlex='60' color='primary' formControlName="hasMenu" (mouseenter)='hintSender(1)'>Need ordering
+      service</mat-checkbox>
+
+    <ng-container *ngIf='form.value.hasMenu'>
+      <div fxLayout='column' class='content'>
+        <span class="card-title">Security Settings</span>
+
+        <mat-checkbox fxFlex='60' color='primary' formControlName="hasTableNoLock" (mouseenter)='hintSender(42)'>Table
+          number lock
+        </mat-checkbox>
+
+        <mat-checkbox fxFlex='60' color='primary' class='check-box' formControlName="hasTableNoRange"
+          (mouseenter)='hintSender(47)'>Check table number range</mat-checkbox>
+
+        <ng-container *ngIf='form.value.hasTableNoRange'>
+          <mat-form-field floatLabel='never'>
+            <span matPrefix>1 - &nbsp;</span>
+            <input type="number" matInput placeholder="Maximum table number" formControlName='tableNoRange' />
+            <mat-error *ngFor='let validation of validation_messages.tableNoRange'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'tableNoRange')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+      </div>
+
+      <div fxLayout='column' class='content'>
+        <span class="card-title">Language Settings</span>
+
+        <mat-checkbox fxFlex='60' color='primary' formControlName="hasTranslation" (mouseenter)='hintSender(43)'>Two
+          languages support</mat-checkbox>
+      </div>
+
+
+      <div fxLayout='column' class='content'>
+        <span class="card-third-title">Order Settings</span>
+
+        <div fxLayout='column' fxLayoutGap='-1em'>
+          <mat-form-field floatLabel='never'>
+            <mat-select placeholder="Order service's type" formControlName="orderMode" (mouseenter)='orderModeHint()'>
+              <mat-option *ngFor="let item of orderModeType" [value]="item.value">{{item.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngFor='let validation of validation_messages.orderMode'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'orderMode')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never'>
+            <mat-select placeholder="View order's type" formControlName="displayMode" (mouseenter)='hintSender(4)'>
+              <mat-option *ngFor="let item of displayModeType" [value]="item.value">{{item.name}}</mat-option>
+            </mat-select>
+            <mat-error *ngFor='let validation of validation_messages.displayMode'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'displayMode')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+
+        <mat-checkbox fxFlex='60' color='primary' class='check-box' formControlName="hasCallService"
+          (mouseenter)='hintSender(3)'>Need call button service</mat-checkbox>
+        <ng-container *ngIf='form.value.hasCallService'>
+          <mat-checkbox fxFlex='60' color='primary' class='check-box' formControlName="hasPayCounter"
+            (mouseenter)='hintSender(46)'>Suggest customers to pay at counter</mat-checkbox>
+        </ng-container>
+        <mat-checkbox fxFlex='60' color='primary' class='check-box' formControlName="hasNotifyService"
+          (mouseenter)='hintSender(41)'>Need notify customer button service</mat-checkbox>
+        <mat-checkbox fxFlex='60' color='primary' class='check-box' formControlName="hasHideTotal"
+          (mouseenter)='hintSender(45)'>Hide order total price</mat-checkbox>
+      </div>
+
+
+      <div fxLayout='column' class='content'>
+        <span class="card-title">Service Tax Settings</span>
+
+        <mat-checkbox fxFlex='60' color='primary' formControlName="hasTax" (mouseenter)='hintSender(8)'>Has service tax
+          (SST)
+        </mat-checkbox>
+
+        <mat-form-field floatLabel='never'>
+          <span matSuffix>% (Percent) &nbsp;</span>
+          <input type="number" matInput placeholder="Service tax percentage" formControlName='taxPercentage'
+            (focus)='hintSender(9)' />
+          <mat-error *ngFor='let validation of validation_messages.taxPercentage'>
+            <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'taxPercentage')">
+              {{validation.message}}</mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div fxLayout='column' class='content'>
+        <span class="card-title">Service Charge Settings</span>
+
+        <mat-checkbox fxFlex='60' color='primary' formControlName="hasServiceCharge" (mouseenter)='hintSender(10)'>Has
+          service charge</mat-checkbox>
+
+        <mat-form-field floatLabel='never'>
+          <span matSuffix>% (Percent) &nbsp;</span>
+          <input type="number" matInput placeholder="Service charge percentage"
+            formControlName='serviceChargePercentage' />
+          <mat-error *ngFor='let validation of validation_messages.serviceChargePercentage'>
+            <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'serviceChargePercentage')">
+              {{validation.message}} </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+
+      <div fxLayout='column' class='content'>
+        <span class="card-title">Take Away Settings</span>
+
+        <mat-checkbox fxFlex='60' color='primary' formControlName="hasTakeAway" (mouseenter)='hintSender(11)'>Open for
+          take away</mat-checkbox>
+        <mat-checkbox class='check-box3' fxFlex='60' color='primary' formControlName="hasTakeAwayFee"
+          (mouseenter)='hintSender(12)'>Has take away charges</mat-checkbox>
+
+        <ng-container *ngIf='form.controls.hasTakeAwayFee.value'>
+          <mat-checkbox fxFlex='60' color='primary' class='check-box3' formControlName="hasTakeAwayPerPackage"
+            (mouseenter)='hintSender(13)'>Charge on every item</mat-checkbox>
+
+          <mat-form-field floatLabel='never'>
+            <span matPrefix>RM &nbsp;</span>
+            <input type="number" matInput placeholder="Take away fee" formControlName='takeAwayFee' />
+            <mat-error *ngFor='let validation of validation_messages.takeAwayFee'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'takeAwayFee')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <div fxLayout='column' class='content'>
+      <span class="card-title">Public Notice</span>
+
+      <mat-checkbox fxFlex='60' color='primary' formControlName="hasNotice" (mouseenter)='hintSender(48)'>
+        Has public notice</mat-checkbox>
+
+      <div fxLayout='column' fxLayoutGap='-1em'>
+        <ng-container *ngIf='form.value.hasNotice'>
+          <mat-form-field floatLabel='never'>
+            <input matInput placeholder="Notice title" formControlName='noticeTitle' (focus)='hintSender(49)'
+              [attr.maxlength]='60' />
+            <mat-hint align="end" *ngIf='form.value.noticeTitle'>{{form.value.noticeTitle.length}}/60</mat-hint>
+            <mat-error *ngFor='let validation of validation_messages.noticeTitle'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'noticeTitle')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never'>
+            <input matInput placeholder="Notice title translated (Optional)" formControlName='noticeTitleTranslated'
+              [attr.maxlength]='40' />
+            <mat-hint align="end" *ngIf='form.value.noticeTitleTranslated'>
+              {{form.value.noticeTitleTranslated.length}}/40
+            </mat-hint>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never'>
+            <textarea matInput placeholder="Notice content" formControlName='noticeContent'
+              [attr.maxlength]='160'></textarea>
+            <mat-hint align="end" *ngIf='form.value.noticeContent'>{{form.value.noticeContent.length}}/160</mat-hint>
+            <mat-error *ngFor='let validation of validation_messages.noticeContent'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'noticeContent')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never'>
+            <textarea matInput placeholder="Notice content translated (Optional)"
+              formControlName='noticeContentTranslated' [attr.maxlength]='120'></textarea>
+            <mat-hint align="end" *ngIf='form.value.noticeContentTranslated'>
+              {{form.value.noticeContentTranslated.length}}/120</mat-hint>
+          </mat-form-field>
+        </ng-container>
+      </div>
+    </div>
+
+
+    <ng-container *ngIf='isFormChanged && !menuId && form.value.hasMenu'>
+      <button
+        [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+        [disabled]='needSpinner' (click)="createMenu()">
+        <ng-container *ngIf='!needSpinner'>
+          Create Menu
+        </ng-container>
+        <ng-container *ngIf='needSpinner'>
+          <mat-spinner class='spinner' diameter=19></mat-spinner>
+        </ng-container>
+      </button>
+    </ng-container>
+
+    <ng-container *ngIf='isFormChanged && menuId'>
+      <button
+        [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+        [disabled]='needSpinner' (click)="updateSettings()">
+        <ng-container *ngIf='!needSpinner'>
+          Save Settings
+        </ng-container>
+        <ng-container *ngIf='needSpinner'>
+          <mat-spinner class='spinner' diameter=19></mat-spinner>
+        </ng-container>
+      </button>
+    </ng-container>
+  </div>
+
+</form>

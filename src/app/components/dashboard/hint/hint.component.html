@@ -1,0 +1,130 @@
+<span class="card-title">Tips and Hints</span>
+
+<div fxLayout='column'>
+  <ng-container *ngIf='hint'>
+    <span class='content' [innerHTML]="hint.content"></span>
+
+    <ng-container *ngIf='hint.format'>
+      <span class='header'>Suggested Format</span>
+      <span class='format-card'>{{ hint.format}}</span>
+    </ng-container>
+
+    <ng-container *ngIf='hint.examples'>
+      <ng-container *ngIf='hint.examples.length'>
+        <span class='header2'>Example</span>
+        <ng-container *ngFor='let example of hint.examples'>
+          <span class='example-card'>{{example}}</span>
+        </ng-container>
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</div>
+
+<ng-container *ngIf='isFormChanged'>
+  <ng-container *ngIf="router.url === '/dashboard/profile'">
+    <div fxLayout='row' *ngIf='form'>
+      <ng-container *ngIf='isNewAdmin'>
+        <button
+          [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+          (click)="updateRestaurant()" [disabled]="!form.valid || needSpinner">
+          <ng-container *ngIf='!needSpinner'>
+            Update
+          </ng-container>
+          <ng-container *ngIf='needSpinner'>
+            <mat-spinner class='spinner' diameter=19></mat-spinner>
+          </ng-container>
+        </button>
+      </ng-container>
+      <ng-container *ngIf='!isNewAdmin'>
+        <button
+          [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+          (click)="addRestaurant()" [disabled]="!form.valid || needSpinner">
+          <ng-container *ngIf='!needSpinner'>
+            Submit
+          </ng-container>
+          <ng-container *ngIf='needSpinner'>
+            <mat-spinner class='spinner' diameter=19></mat-spinner>
+          </ng-container>
+        </button>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf="router.url === '/dashboard/voucher'">
+    <ng-container *ngIf='!isViewMode'>
+      <div fxLayout='row' *ngIf='form'>
+        <button
+          [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+          (click)="addVoucher()" [disabled]="!form.valid || needSpinner">
+          <ng-container *ngIf='!needSpinner'>
+            Submit
+          </ng-container>
+          <ng-container *ngIf='needSpinner'>
+            <mat-spinner class='spinner' diameter=19></mat-spinner>
+          </ng-container>
+        </button>
+      </div>
+    </ng-container>
+  </ng-container>
+
+  <ng-container *ngIf="router.url === '/dashboard/menu'">
+    <ng-container *ngIf="type === 'Food'">
+      <div fxLayout='row' *ngIf='form'>
+        <ng-container *ngIf='isFirstCreate && isFormChanged'>
+          <button
+            [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+            (click)="addFood()" [disabled]="!form.valid || needSpinner">
+            <ng-container *ngIf='!needSpinner'>
+              {{buttonText}}
+            </ng-container>
+            <ng-container *ngIf='needSpinner'>
+              <mat-spinner class='spinner' diameter=19></mat-spinner>
+            </ng-container>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="!isFirstCreate && isFormChanged">
+          <button
+            [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+            (click)="updateFood()" [disabled]="!form.valid || needSpinner">
+            <ng-container *ngIf='!needSpinner'>
+              {{buttonText}}
+            </ng-container>
+            <ng-container *ngIf='needSpinner'>
+              <mat-spinner class='spinner' diameter=19></mat-spinner>
+            </ng-container>
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
+
+    <ng-container *ngIf="type === 'Category'">
+      <div fxLayout='row' *ngIf='form'>
+        <ng-container *ngIf='isFirstCreate && isFormChanged'>
+          <button
+            [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+            (click)="addCategory()" [disabled]="!form.valid || needSpinner">
+            <ng-container *ngIf='!needSpinner'>
+              {{buttonText}}
+            </ng-container>
+            <ng-container *ngIf='needSpinner'>
+              <mat-spinner class='spinner' diameter=19></mat-spinner>
+            </ng-container>
+          </button>
+        </ng-container>
+        <ng-container *ngIf="!isFirstCreate && isFormChanged">
+          <button
+            [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+            (click)="updateCategory()" [disabled]="!form.valid || needSpinner">
+            <ng-container *ngIf='!needSpinner'>
+              {{buttonText}}
+            </ng-container>
+            <ng-container *ngIf='needSpinner'>
+              <mat-spinner class='spinner' diameter=19></mat-spinner>
+            </ng-container>
+          </button>
+        </ng-container>
+      </div>
+    </ng-container>
+  </ng-container>
+
+</ng-container>

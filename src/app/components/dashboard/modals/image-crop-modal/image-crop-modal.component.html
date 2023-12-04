@@ -1,0 +1,54 @@
+<div [className]="classes.actions">
+  <span [className]="classes.flex"></span>
+  <!-- Hidden input -->
+  <input #_fileInput type="file" (change)="cropping.selectInputEvent($event)" accept="image/*" hidden>
+</div>
+
+<div *ngIf="cropping.isLoaded">
+  <div fxLayout='row' fxLayoutAlign="center center">
+    <button (click)="cropping.zoomIn()" mat-button appearance="icon">
+      <mat-icon>zoom_in</mat-icon>
+    </button>
+    <button (click)="cropping.zoomOut()" mat-button appearance="icon">
+      <mat-icon>zoom_out</mat-icon>
+    </button>
+    <button (click)="cropping.center()" mat-button appearance="icon">
+      <mat-icon>filter_center_focus</mat-icon>
+    </button>
+    <button (click)="cropping.rotate(-90)" mat-button appearance="icon">
+      <mat-icon>rotate_90_degrees_ccw</mat-icon>
+    </button>
+  </div>
+  <div fxLayout='row' fxLayoutAlign="center center">
+    <button (click)="cropping.fit()" mat-button>Fit</button>
+    <button (click)="cropping.fitToScreen()" mat-button>Fit to screen</button>
+    <button (click)="cropping.setScale(1)" mat-button>1:1</button>
+    <button (click)="cropping.clean()" mat-button>Clean</button>
+  </div>
+
+</div>
+
+<ly-img-cropper [withClass]="classes.cropping" #cropping [config]="myConfig" [(scale)]="scale"
+  (cropped)="onCropped($event)" (loaded)="onloaded($event)" (error)="onerror($event)">
+  <span class='upload-box-empty'>
+    <mat-icon class='image-icon'>image</mat-icon>
+    <span class='upload-text'>Click me or drag and drop image</span>
+  </span>
+</ly-img-cropper>
+
+<div fxLayout='row' fxLayoutAlign="center center">
+  <div *ngIf="cropping.isLoaded" [className]="classes.range">
+    <input type="range" [className]="classes.rangeInput" [attr.min]="cropping.minScale" max="1" [(ngModel)]="scale"
+      step="any">
+  </div>
+</div>
+
+<!-- <div fxLayout='row' fxLayoutAlign="center center">
+  <img *ngIf="croppedImage" [src]="croppedImage">
+</div> -->
+
+<div fxLayout='row' fxLayoutAlign="center center">
+  <button class='submit-button' *ngIf="cropping.isLoaded" [mat-dialog-close]="croppedImage" mat-button>
+    <mat-icon>crop</mat-icon>crop
+  </button>
+</div>

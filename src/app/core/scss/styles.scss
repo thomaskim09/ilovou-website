@@ -1,0 +1,110 @@
+// Required in styles.scss for ng-pick-datetime to work
+@import "../../../../node_modules/ng-pick-datetime/assets/style/picker.min.css";
+
+// Customize spinner
+.mat-progress-spinner {
+  left: 35%;
+}
+
+.mat-spinner circle {
+  stroke: white !important;
+}
+
+// Customize owl date time picker
+.owl-dt-calendar-cell-selected {
+  background-color: #ff9566 !important;
+}
+
+.owl-dt-container-buttons {
+  color: #ff9566 !important;
+}
+
+// Customize scroll bar globally
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+  background-color: #F5F5F5;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #d3d3d3;
+  border-radius: 1em;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #F5F5F5;
+}
+
+// Customize selection color globally
+::selection {
+  background: #ff9566 !important;
+  color: white;
+}
+
+::-moz-selection {
+  background: #ff9566 !important;
+  color: white;
+}
+
+// Animate link color
+a {
+  -webkit-transition: all .35s;
+  -moz-transition: all .35s;
+  transition: all .35s;
+  color: #ff9566
+}
+
+a:focus,
+a:hover {
+  color: #fcbd20
+}
+
+// Global p style
+p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 20px
+}
+
+// Customize font globally
+html,
+body {
+  margin: 0 !important;
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// in-flight clone
+.gu-mirror {
+  position: fixed !important;
+  margin: 0 !important;
+  z-index: 9999 !important;
+  opacity: 0.8;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=80)";
+  filter: alpha(opacity=80);
+  pointer-events: none;
+}
+
+// high-performance display:none; helper
+.gu-hide {
+  left: -9999px !important;
+}
+
+// added to mirrorContainer (default = body) while dragging
+.gu-unselectable {
+  -webkit-user-select: none !important;
+  -moz-user-select: none !important;
+  -ms-user-select: none !important;
+  user-select: none !important;
+}
+
+// added to the source element while its mirror is dragged
+.gu-transit {
+  opacity: 0.2;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+  filter: alpha(opacity=20);
+}

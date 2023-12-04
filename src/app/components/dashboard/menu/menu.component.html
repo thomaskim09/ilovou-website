@@ -1,0 +1,17 @@
+<div fxLayout='row' fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="0.5em">
+
+  <div fxFlex='35' class='card-container'>
+    <app-menu-left></app-menu-left>
+  </div>
+
+  <ng-container *ngIf='needMenuRight'>
+    <div fxFlex='35' class='card-container'>
+      <app-menu-right></app-menu-right>
+    </div>
+  </ng-container>
+
+  <div fxFlex='20' class='hint-card-container'>
+    <app-hint></app-hint>
+  </div>
+
+</div>

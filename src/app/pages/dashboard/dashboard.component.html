@@ -1,0 +1,57 @@
+<mat-toolbar class="toolbar">
+  <mat-toolbar-row>
+    <button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="sidenav.toggle()" color="primary">
+      <mat-icon class="menu-icon" aria-label="Side nav toggle icon">menu</mat-icon>
+    </button>
+    <span class="logo">ILOVOU
+      <ng-container *ngIf='restaurantName'>
+        | {{restaurantName}}
+      </ng-container>
+    </span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav opened role="navigation" class='sidenav'>
+    <mat-nav-list class='nav-list'>
+      <a mat-list-item routerLink="../dashboard/profile" routerLinkActive="active" class="pad-left">
+        <mat-icon class='dashboard-icon'>account_circle</mat-icon>
+        Restaurant's Profile
+      </a>
+      <ng-container *ngIf='restaurantId'>
+        <a mat-list-item routerLink="../dashboard/voucher" routerLinkActive="active" class="pad-left">
+          <mat-icon class='dashboard-icon'>local_activity</mat-icon>
+          Voucher Manager
+        </a>
+        <ng-container *ngIf="feature === '3'">
+          <a mat-list-item routerLink="../dashboard/reservation" routerLinkActive="active" class="pad-left">
+            <mat-icon class='dashboard-icon'>event</mat-icon>
+            Reservation Settings
+          </a>
+          <a mat-list-item routerLink="../dashboard/menu" routerLinkActive="active" class="pad-left">
+            <mat-icon class='dashboard-icon'>local_dining</mat-icon>
+            Menu Manager
+          </a>
+        </ng-container>
+        <a mat-list-item routerLink="../dashboard/bill" routerLinkActive="active" class="pad-left">
+          <mat-icon class='dashboard-icon'>assignment</mat-icon>
+          Transactions
+        </a>
+      </ng-container>
+      <a mat-list-item (click)='logout()' routerLinkActive="active" class="logout-link pad-left">
+        <mat-icon class='dashboard-icon'>logout</mat-icon>
+        Log Out
+      </a>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <ng-container *ngIf='isEmpty'>
+      <div class='image-box'>
+        <img src="../../../assets/imgs/pick-action.png" class='centerImage'>
+      </div>
+    </ng-container>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

@@ -1,0 +1,58 @@
+<form [formGroup]='form' autocomplete="off">
+
+  <div fxLayout='column'>
+
+    <span class="card-title">Voucher Transactions Summary</span>
+
+    <mat-form-field floatLabel='never'>
+      <mat-select placeholder="Duration (Shortcuts)" formControlName="duration">
+        <ng-container *ngFor='let item of durationList; let i=index'>
+          <mat-option value={{item.value}}>
+            {{item.name}}
+          </mat-option>
+        </ng-container>
+      </mat-select>
+    </mat-form-field>
+
+    <div fxLayout='row' fxLayoutGap='2em'>
+      <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+        <mat-icon class='inputIcon' matSuffix>event</mat-icon>
+        <input [matDatepicker]="myDatepicker" matInput [max]="form.controls.endDate.value" placeholder="Start Date"
+          formControlName='startDate' (focus)="myDatepicker.open()">
+        <mat-datepicker #myDatepicker></mat-datepicker>
+        <mat-error *ngFor='let validation of validation_messages.startDate'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'startDate')">
+            {{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+        <mat-icon class='inputIcon' matSuffix>event</mat-icon>
+        <input [matDatepicker]="myDatepicker1" [min]="form.controls.startDate.value" matInput placeholder="End Date"
+          formControlName='endDate' (focus)="myDatepicker1.open()">
+        <mat-datepicker #myDatepicker1></mat-datepicker>
+        <mat-error *ngFor='let validation of validation_messages.endDate'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'endDate')">{{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <ng-container *ngIf='isFormChanged'>
+      <div fxLayout='row'>
+        <button
+          [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+          (click)="previewPDF()" [disabled]="!form.valid || needSpinner">
+          <ng-container *ngIf='!needSpinner'>
+            Preview PDF
+          </ng-container>
+          <ng-container *ngIf='needSpinner'>
+            <mat-spinner class='spinner' diameter=19></mat-spinner>
+          </ng-container>
+        </button>
+      </div>
+    </ng-container>
+  </div>
+
+</form>

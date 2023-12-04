@@ -1,0 +1,144 @@
+@import "../../core/scss/variables";
+@import "../../core/scss/mixins";
+
+.body {
+  min-height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.2)), url('../../../assets/imgs/restaurant.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.homeButton {
+  height: 4em;
+  width: 4em;
+  border-radius: 5em;
+  position: absolute;
+  left: 1em;
+  top: 1em;
+  z-index: 2;
+  background-color: $GRADIENT_TOP;
+  color: white;
+  @include my-img-shadow();
+}
+
+.card {
+  position: relative;
+  background-color: white;
+  border-radius: 1em;
+  @include my-shadow(black);
+
+  margin-left: 10%;
+  margin-top: 28%;
+  height: 70vh;
+
+  @media (min-width:960px) {
+    margin-left: 20%;
+    margin-top: 8%;
+    height: 65vh;
+  }
+
+  @media (min-width:1800px) {
+    margin-left: 20%;
+    margin-top: 8%;
+    height: 45vh;
+  }
+}
+
+.left-content {
+  padding: 2.5em;
+}
+
+.title {
+  margin-bottom: 3em;
+  font-size: 2.5em;
+}
+
+.error {
+  color: red;
+}
+
+.form {
+  position: relative;
+  top: 3em;
+
+  @media (min-width:1400px) {
+    top: 2em;
+  }
+}
+
+.fullWidthInput {
+  width: 100%;
+}
+
+.update-button {
+  font-size: 1em;
+  padding: 0.8em 1em;
+  width: 7em;
+  background-color: $GRADIENT_TOP;
+  border-radius: 3em;
+  color: white;
+  font-weight: bold;
+  border: none;
+  @include my-img-shadow();
+  position: relative;
+  top: 1.5em;
+
+  @media (min-width:960px) {
+    top: 2em;
+  }
+}
+
+.update-button-inactive {
+  font-size: 1em;
+  padding: 0.8em 1em;
+  width: 7em;
+  border: none;
+  border-radius: 3em;
+  position: relative;
+  top: 1.5em;
+
+  @media (min-width:960px) {
+    top: 2em;
+  }
+}
+
+.right-image {
+  height: 45vh;
+  border-radius: 0 1em 1em 0;
+  background: linear-gradient(rgba(255, 149, 102, 0.7), rgba(255, 149, 102, 0.7)), url('../../../assets/imgs/app.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  padding: 2.3em 2em;
+
+  @media (min-width:960px) {
+    height: 65vh;
+  }
+}
+
+.image-text {
+  color: white;
+  font-size: 3em;
+  font-weight: bold;
+
+  @media (min-width:960px) {
+    font-size: 2.5em;
+  }
+
+  @media (min-width:1100px) {
+    font-size: 2.9em;
+  }
+}
+
+.image-small-text {
+  margin-top: 0.5em;
+  text-align: right;
+  font-weight: 500;
+  font-size: 1.5em;
+  color: white;
+
+  @media (min-width:960px) {
+    margin-top: 1.5em;
+  }
+}

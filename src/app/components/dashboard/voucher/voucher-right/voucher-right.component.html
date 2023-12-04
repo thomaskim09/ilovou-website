@@ -1,0 +1,31 @@
+<form [formGroup]="form" autocomplete="off">
+
+  <div fxLayout='column' fxLayoutGap="3.5em">
+    <app-v-r-main-content [form]='form'></app-v-r-main-content>
+
+    <ng-container *ngIf="restaurantList.length > 1">
+      <app-v-r-branch [form]='form'></app-v-r-branch>
+    </ng-container>
+
+    <ng-container *ngIf="form.value.voucherType === 'SV'">
+      <app-v-r-set-details [form]='form'></app-v-r-set-details>
+    </ng-container>
+
+    <ng-container *ngIf="form.value.voucherType === 'QV'">
+      <app-v-r-quantity-details [form]='form'></app-v-r-quantity-details>
+    </ng-container>
+
+    <ng-container *ngIf="form.value.voucherType === 'MV'">
+      <app-v-r-monthly-details [form]='form'></app-v-r-monthly-details>
+    </ng-container>
+
+    <app-v-r-rules [form]='form'></app-v-r-rules>
+
+    <ng-container *ngIf="form.value.voucherType === 'SV' || form.value.voucherType === 'QV'">
+      <app-v-r-group [form]='form'></app-v-r-group>
+    </ng-container>
+
+    <app-v-r-limit [form]='form'></app-v-r-limit>
+  </div>
+
+</form>

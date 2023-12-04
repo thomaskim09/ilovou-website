@@ -1,0 +1,68 @@
+  section {
+    padding: 100px 0
+  }
+
+  section h2 {
+    font-size: 40px
+  }
+
+  section.contact {
+    text-align: center;
+  }
+
+  section.contact h2 {
+    margin-top: 0;
+    margin-bottom: 25px
+  }
+
+  section.contact ul.list-social {
+    margin-bottom: 0
+  }
+
+  section.contact h2 i {
+    color: #dd4b39
+  }
+
+  .bg-primary {
+    background: url(../../../../assets/home-style/img/bg-pattern2.png), #ff9566;
+    background: url(../../../../assets/home-style/img/bg-pattern2.png), -webkit-linear-gradient(to left, #ff9566, #fd917c);
+    background: url(../../../../assets/home-style/img/bg-pattern2.png), linear-gradient(to left, #ff9566, #fd917c)
+  }
+
+  section.contact ul.list-social li a {
+    display: block;
+    height: 80px;
+    width: 80px;
+    line-height: 80px;
+    font-size: 40px;
+    border-radius: 100%;
+    color: #fff
+  }
+
+  section.contact ul.list-social li.social-twitter a {
+    background-color: #1da1f2
+  }
+
+  section.contact ul.list-social li.social-twitter a:hover {
+    background-color: #0d95e8
+  }
+
+  section.contact ul.list-social li.social-facebook a {
+    background-color: #3b5998
+  }
+
+  section.contact ul.list-social li.social-facebook a:hover {
+    background-color: #344e86
+  }
+
+  section.contact ul.list-social li.social-google-plus a {
+    background-color: #dd4b39
+  }
+
+  section.contact ul.list-social li.social-google-plus a:hover {
+    background-color: #d73925
+  }
+
+  .information {
+    margin-bottom: 2em;
+  }

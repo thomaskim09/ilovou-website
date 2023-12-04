@@ -1,4 +1,5 @@
 {
+  "extends": ["tslint-angular", "tslint-ionic-rules/strict"],
   "rulesDirectory": [
     "node_modules/codelyzer"
   ],
@@ -27,10 +28,7 @@
     ],
     "interface-over-type-literal": true,
     "label-position": true,
-    "max-line-length": [
-      true,
-      140
-    ],
+    "max-line-length": false,
     "member-access": false,
     "member-ordering": [
       true,
@@ -45,24 +43,14 @@
     ],
     "no-arg": true,
     "no-bitwise": true,
-    "no-console": [
-      true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
-    ],
+    "no-console": true,
     "no-construct": true,
     "no-debugger": true,
     "no-duplicate-super": true,
     "no-empty": false,
     "no-empty-interface": true,
     "no-eval": true,
-    "no-inferrable-types": [
-      true,
-      "ignore-params"
-    ],
+    "no-inferrable-types": false,
     "no-misused-new": true,
     "no-non-null-assertion": true,
     "no-redundant-jsdoc": true,
@@ -126,6 +114,16 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true
+    "directive-class-suffix": true,
+    "no-duplicate-variable": true,
+    "no-unused-variable": [
+      true
+    ],
+    "ordered-imports": false,
+    "trailing-comma": false,
+    "no-floating-promises": false,
+    "object-literal-shorthand": false,
+    "linebreak-style": false,
+    "strict-boolean-conditions": false
   }
 }

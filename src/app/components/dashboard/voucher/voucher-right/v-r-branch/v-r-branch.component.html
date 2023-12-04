@@ -1,0 +1,20 @@
+<div [formGroup]='form'>
+
+  <div fxLayout='column'>
+
+    <span class="card-title">Available Branch</span>
+
+
+    <mat-form-field floatLabel='never' fxFlex='grow'>
+      <mat-select formControlName="restaurantList" placeholder="Available branch (Optional)" [multiple]="true"
+        (focus)='hintSender(37)'>
+        <ngx-mat-select-search [formControl]="branchFilterCtrl" [placeholderLabel]="'Search'"
+          [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+        <mat-option *ngFor="let item of filteredBranch | async" [value]="item.id">
+          {{item.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+</div>

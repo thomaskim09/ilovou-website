@@ -1,0 +1,75 @@
+<div [formGroup]='form'>
+
+  <span class="card-title">Set Voucher Details</span>
+
+  <div formArrayName="setDetails">
+    <ng-container *ngFor='let parent of setDetailsControls.controls; let i=index'>
+      <div class='set-details' formGroupName='{{i}}'>
+        <div fxLayout='row' fxLayoutGap="1.5em">
+          <mat-form-field floatLabel='never' class='fullWidthInput'>
+            <input matInput placeholder="Set's Title" formControlName='setTitle' (focus)="hintSender(21)" />
+            <mat-hint *ngIf="parent.get('setTitle').value?.length > 27">Item's name might not be able to show
+              all if too long
+            </mat-hint>
+            <mat-error *ngFor='let validation of validation_messages.setTitle'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(parent, validation, 'setTitle')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+          <ng-container>
+            <div fxLayout='row' fxLayoutGap="1em">
+              <ng-container *ngIf='i > 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='deleteSetDetails(i)'>delete</mat-icon>
+              </ng-container>
+              <ng-container *ngIf='i === 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='addSetDetails()'>add</mat-icon>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+
+        <div formArrayName="setContent">
+          <ng-container *ngFor='let child of parent.controls.setContent.controls; let j=index'>
+            <div formGroupName='{{j}}'>
+              <div fxLayout='row' fxLayoutGap="1.5em">
+                <mat-form-field floatLabel='never' fxFlex='35'>
+                  <input matInput placeholder="Name" formControlName='setName' (focus)="hintSender(22)" />
+                  <mat-error *ngFor='let validation of validation_messages.setName'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(child, validation, 'setName')">
+                      {{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field floatLabel='never' fxFlex='20'>
+                  <input type='number' matInput placeholder="Unit" formControlName='setUnit' (focus)="hintSender(23)" />
+                  <mat-error *ngFor='let validation of validation_messages.setUnit'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(child, validation, 'setUnit')">
+                      {{validation.message}} </mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field floatLabel='never' fxFlex='20'>
+                  <span matPrefix>RM &nbsp;</span>
+                  <input type='number' matInput placeholder="Price" formControlName='setPrice'
+                    (focus)="hintSender(24)" />
+                  <mat-error *ngFor='let validation of validation_messages.setPrice'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(child, validation, 'setPrice')">
+                      {{validation.message}} </mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <div fxLayout='row' fxLayoutGap="1em">
+                  <ng-container *ngIf='j > 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='deleteSetContent(i, j)'>delete</mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf='j === 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='addSetContent(i)'>add</mat-icon>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+</div>

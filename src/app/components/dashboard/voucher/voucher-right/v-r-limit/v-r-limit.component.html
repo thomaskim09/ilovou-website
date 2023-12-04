@@ -1,0 +1,68 @@
+<div [formGroup]='form'>
+
+  <span class="card-title">Limit Control</span>
+
+  <div fxLayout='column' fxLayoutGap="1em">
+    <div fxLayout='column' fxLayoutGap="1em">
+      <mat-checkbox fxFlex='60' class='check-box' color='primary' formControlName="limitedQuantityModel"
+        (mouseenter)='hintSender(32)'>Limited Quantity</mat-checkbox>
+
+      <mat-form-field floatLabel='never' fxFlex='grow' *ngIf='form.controls.limitedQuantityModel.value'>
+        <input type='number' matInput placeholder="e.g. 20 or 50" formControlName='limitedQuantity' />
+        <mat-error *ngFor='let validation of validation_messages.limitedQuantity'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'limitedQuantity')">
+            {{validation.message}} </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <ng-container *ngIf="form.value.voucherType !== 'MV'">
+      <div fxLayout='column' fxLayoutGap="1em">
+        <mat-checkbox fxFlex='50' class='check-box' color='primary' formControlName="limitedQuantityPerUserModel"
+          (mouseenter)='hintSender(33)'>Limited Quantity Per Person</mat-checkbox>
+
+        <mat-form-field floatLabel='never' fxFlex='grow' *ngIf='form.controls.limitedQuantityPerUserModel.value'>
+          <input type='number' matInput placeholder="e.g. 2 or 5" formControlName='limitedQuantityPerUser' />
+          <mat-error *ngFor='let validation of validation_messages.limitedQuantityPerUser'>
+            <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'limitedQuantityPerUser')">
+              {{validation.message}} </mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </ng-container>
+
+    <div fxLayout='column' fxLayoutGap="1em">
+      <mat-checkbox fxFlex='60' class='check-box' color='primary' formControlName="limitedEndTimeModel"
+        (mouseenter)='hintSender(34)'>Limited Selling Time</mat-checkbox>
+
+      <mat-form-field floatLabel='never' fxFlex='grow' *ngIf='form.controls.limitedEndTimeModel.value'>
+        <mat-icon class='input-icon' matSuffix>event</mat-icon>
+        <input matInput [owlDateTime]="dt1" [owlDateTimeTrigger]="dt1" [min]="minLT" [max]='maxLT'
+          (focus)="setDate('LT')" placeholder="Pick a date" formControlName='limitedEndTime' />
+        <owl-date-time #dt1></owl-date-time>
+        <mat-error *ngFor='let validation of validation_messages.limitedEndTime'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'limitedEndTime')">
+            {{validation.message}} </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout='column' fxLayoutGap="1em">
+      <mat-checkbox fxFlex='60' class='check-box' color='primary' formControlName="startSellingTimeModel"
+        (mouseenter)='hintSender(35)'>Start Selling Time</mat-checkbox>
+
+      <mat-form-field floatLabel='never' fxFlex='grow' *ngIf='form.controls.startSellingTimeModel.value'>
+        <mat-icon class='input-icon' matSuffix>event</mat-icon>
+        <input matInput [owlDateTime]="dt2" [owlDateTimeTrigger]="dt2" [min]="minSS" [max]='maxSS'
+          (focus)="setDate('SS')" placeholder="Pick a date" formControlName='startSellingTime' />
+        <owl-date-time #dt2></owl-date-time>
+        <mat-error *ngFor='let validation of validation_messages.startSellingTime'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'startSellingTime')">
+            {{validation.message}} </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+  </div>
+
+</div>

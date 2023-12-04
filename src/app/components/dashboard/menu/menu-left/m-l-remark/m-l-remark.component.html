@@ -1,0 +1,32 @@
+<div fxLayout='column'>
+
+  <div fxLayout='row'>
+    <span class="card-title" fxFlex='90'>Remarks Short Cuts</span>
+
+    <ng-container *ngIf='remarkList'>
+      <ng-container *ngIf='remarkList.length !== 0'>
+        <button mat-icon-button (click)='toggleEditMode()' class='edit-button' (mouseenter)='hintSender(21)'>
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+    </ng-container>
+
+    <button mat-icon-button (click)='addNewRemark()' class='edit-button' (mouseenter)='hintSender(22)'>
+      <mat-icon>add</mat-icon>
+    </button>
+  </div>
+
+  <ng-container *ngFor='let item of remarkList; let i = index'>
+    <div fxLayout='row'>
+      <div tappable class='list-item' (click)='viewRemark(item._id)'>
+        <span class='item-title'>{{item.remarkTitle}}</span>
+        <span class='item-end'>{{getType(item.remarkType)}}</span>
+      </div>
+      <ng-container *ngIf='isEditMode'>
+        <button mat-icon-button class='list-icon'>
+          <mat-icon tappable (click)='removeRemark(item._id)'>delete</mat-icon>
+        </button>
+      </ng-container>
+    </div>
+  </ng-container>
+</div>

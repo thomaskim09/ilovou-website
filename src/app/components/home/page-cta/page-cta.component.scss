@@ -1,0 +1,251 @@
+@import "../../../core/scss/variables";
+@import "../../../core/scss/mixins";
+
+.btn-download {
+  position: relative;
+  top: 1em;
+  font-size: 1.2em;
+  border-radius: 35px;
+  padding: 15px 45px;
+  color: #fff;
+  border: 1px solid #fff !important;
+  float: left;
+
+  @media only screen and (min-width:1024px) {
+    float: left;
+  }
+
+  @media only screen and (min-width:768px) and (max-width:1023px) {
+    float: none;
+  }
+
+  @media only screen and (min-width:360px) and (max-width:767px) {
+    float: none;
+  }
+}
+
+.btn-download:hover {
+  text-decoration: none;
+  cursor: pointer;
+  color: #fff !important;
+  background-color: #ff9566;
+  border-color: #ff9566;
+  border: 1px solid #ff9566 !important;
+}
+
+.cta {
+  position: relative;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: url(../../../../assets/home-style/img/bg-cta.jpg);
+  padding: 150px 0;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+
+  @media only screen and (min-width:1024px) {
+    text-align: left;
+  }
+
+  @media only screen and (min-width:768px) and (max-width:1023px) {
+    max-width: 400px;
+    text-align: center;
+  }
+
+  @media only screen and (min-width:360px) and (max-width:767px) {
+    max-width: 400px;
+    text-align: center;
+  }
+}
+
+.title {
+  color: #fff;
+  line-height: 1.3em;
+  margin-bottom: 0.3em;
+
+  font-size: 60px;
+  text-align: left;
+
+  @media only screen and (max-width:1024px) {
+    font-size: 60px;
+    text-align: left;
+  }
+
+  @media only screen and (min-width:768px) and (max-width:1023px) {
+    font-size: 40px;
+    text-align: center;
+  }
+
+  @media only screen and (max-width:360px) and (max-width:767px) {
+    font-size: 40px;
+    text-align: center;
+  }
+}
+
+.overlay {
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .5);
+  position: absolute;
+  top: 0;
+  left: 0
+}
+
+// Card
+.card-container {
+  @media only screen and (min-width:360px) and (max-width: 989px) {
+    margin-top: 5em;
+  }
+}
+
+.sample {
+  color: white;
+  opacity: 0.5;
+  font-style: italic;
+}
+
+.ticket-card {
+  position: relative;
+  height: 7.5em;
+  border-radius: 0.5em;
+  margin-top: 0.8em;
+  margin-bottom: 0.4em;
+  z-index: 1;
+  background-color: white;
+  width: 25em;
+  margin-right: 1.5em;
+
+  @media only screen and (min-width:990px) {
+    width: 25em;
+  }
+
+  @media only screen and (min-width:360px) and (max-width: 989px) {
+    width: auto;
+    margin-right: 0;
+    text-align: left;
+    margin-left: 1em;
+  }
+}
+
+.ticket-card:nth-of-type(2) {
+  position: relative;
+  left: 3em;
+
+  @media only screen and (min-width:360px) and (max-width: 989px) {
+    left: 0;
+  }
+}
+
+.ticket-card:nth-of-type(3) {
+  position: relative;
+  left: 6em;
+
+  @media only screen and (min-width:360px) and (max-width: 989px) {
+    left: 0;
+  }
+}
+
+.voucher-image {
+  position: absolute;
+  left: -2.5em;
+  width: 5.7em;
+  height: 5.7em;
+  object-fit: cover;
+  border-radius: 0.5em;
+  @include my-img-shadow();
+}
+
+.left-content {
+  padding-top: 0.8em;
+  position: absolute;
+  left: 1em;
+}
+
+.right-content {
+  padding-top: 0.6em;
+  padding-left: 5em;
+}
+
+.price-content {
+  padding-left: 0.3em;
+  padding-bottom: 0;
+  @include text-truncate();
+}
+
+.primary {
+  font-size: 1.3em;
+  font-weight: 600;
+  padding-bottom: 0.2em;
+  padding-left: 0.2em;
+  padding-right: 0.4em;
+  @include text-truncate();
+}
+
+.secondary {
+  padding-right: 0.5em;
+  @include text-truncate();
+}
+
+.highlight-secondary-text {
+  position: relative;
+  top: -0.2em;
+  padding-left: 0.35em;
+  font-size: 0.9em;
+  color: $GRADIENT_BOTTOM;
+}
+
+.secondary-text {
+  position: relative;
+  top: -0.2em;
+  padding-left: 0.35em;
+  color: $GREY_TEXT_WHITE_DARKER;
+  font-size: 0.9em;
+}
+
+.currency {
+  text-align: right;
+  font-weight: 600;
+  color: $GRADIENT_BOTTOM;
+}
+
+.new-price {
+  font-size: 2.2em;
+  padding-right: 0.2em;
+  padding-left: 0.2em;
+  font-weight: 600;
+  color: $GRADIENT_BOTTOM;
+}
+
+.base-price {
+  color: $GREY_TEXT_WHITE;
+  text-decoration: line-through;
+  font-size: 0.9em;
+}
+
+.get-button {
+  position: absolute;
+  right: 1em;
+  bottom: 0.8em;
+  border: none;
+  border-radius: 15em;
+  height: 2em;
+  width: 4.3em;
+  z-index: 5;
+  @include my-gradient($GRADIENT_TOP, $GRADIENT_BOTTOM);
+  @include my-img-shadow();
+}
+
+.get-button-text {
+  position: relative;
+  top: 0.1em;
+  font-size: 1.2em;
+  font-weight: 400;
+  padding-left: 0.9em;
+  text-transform: capitalize;
+  color: white;
+}

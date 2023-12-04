@@ -1,0 +1,15 @@
+<div class='content'>
+  <div fxLayout='column'>
+    <span class='title'>Refund Policy</span>
+
+    <ng-container *ngFor='let item2 of refundList'>
+
+      <span class='subtitle' [innerHTML]='item2.subtitle'></span>
+
+      <ng-container *ngFor='let item3 of item2.content'>
+        <p class='content-value' [innerHTML]='item3'></p>
+      </ng-container>
+
+    </ng-container>
+  </div>
+</div>

@@ -1,0 +1,118 @@
+<ng-container *ngIf='needRemarkForm'>
+  <form [formGroup]='form' autocomplete="off">
+
+    <div fxLayout='column'>
+
+      <span class="card-title">Remarks Details</span>
+
+      <div fxLayout='column' fxLayoutGap="-1em">
+        <div fxLayout='row' fxLayoutGap="1.5em">
+          <mat-form-field floatLabel='never' fxFlex='30'>
+            <input matInput placeholder="Remark's Name" formControlName='remarkTitle' (focus)='hintSender(33)' />
+            <mat-error *ngFor='let validation of validation_messages.remarkTitle'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'remarkTitle')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+          <mat-form-field floatLabel='never' fxFlex='30'>
+            <input matInput placeholder="Translated Name" formControlName='remarkTitleTranslated' />
+          </mat-form-field>
+          <mat-form-field floatLabel='never' fxFlex='30'>
+            <mat-select placeholder="Type" formControlName="remarkType">
+              <ng-container *ngFor='let item of typeList'>
+                <mat-option value={{item.value}}>
+                  {{item.name}}
+                </mat-option>
+              </ng-container>
+            </mat-select>
+            <mat-error *ngFor='let validation of validation_messages.remarkType' (focus)='hintSender(34)'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'remarkType')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div formArrayName="remarkDetails" fxLayout='column' fxLayoutGap="-1em">
+          <ng-container *ngFor='let childrenItem of form.controls.remarkDetails.controls; let i=index'>
+            <div formGroupName='{{i}}' fxLayout='column' fxLayoutGap="0em">
+              <div fxLayout='row' fxLayoutGap="1.5em">
+                <mat-form-field floatLabel='never' fxFlex='40'>
+                  <input matInput placeholder="Name" formControlName='remarkName' (focus)='hintSender(35)' />
+                  <mat-error *ngFor='let validation of validation_messages.remarkName'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(childrenItem, validation, 'remarkName')">
+                      {{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field floatLabel='never' fxFlex='40'>
+                  <input matInput placeholder="Translated name" formControlName='remarkNameTranslated'
+                    (focus)='hintSender(44)' />
+                </mat-form-field>
+
+                <div fxLayout='row' fxLayoutGap="1em">
+                  <ng-container *ngIf='i > 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='deleteChildren(i)'>delete</mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf='i === 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='addChildren()'>add</mat-icon>
+                  </ng-container>
+                </div>
+              </div>
+
+
+              <div class='remark_details' fxLayout='row' fxLayoutGap="1.5em">
+                <mat-form-field floatLabel='never' fxFlex='40'>
+                  <input matInput placeholder="Short Name (Optional)" formControlName='remarkShortName'
+                    (focus)='hintSender(36)' />
+                </mat-form-field>
+                <mat-form-field floatLabel='never' fxFlex='40'>
+                  <span matPrefix>+ RM &nbsp;</span>
+                  <input type='number' matInput placeholder="Price" formControlName='remarkPrice'
+                    (focus)='hintSender(37)' />
+                  <mat-error *ngFor='let validation of validation_messages.remarkPrice'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(childrenItem, validation, 'remarkPrice')">
+                      {{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <ng-container *ngIf='isFirstCreate && formChanged'>
+        <div class='space'></div>
+      </ng-container>
+    </div>
+
+    <ng-container *ngIf='isFirstCreate && formChanged'>
+      <div fxLayout='row'>
+        <button
+          [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+          (click)="addRemarks()" [disabled]="!form.valid || needSpinner">
+          <ng-container *ngIf='!needSpinner'>
+            Add
+          </ng-container>
+          <ng-container *ngIf='needSpinner'>
+            <mat-spinner class='spinner' diameter=19></mat-spinner>
+          </ng-container>
+        </button>
+      </div>
+    </ng-container>
+    <ng-container *ngIf="!isFirstCreate && formChanged">
+      <div fxLayout='row'>
+        <button
+          [ngClass]="{'submit-button': form.valid && !needSpinner, 'submit-button-inactive': !form.valid || needSpinner}"
+          (click)="updateRemarks()" [disabled]="!form.valid || needSpinner">
+          <ng-container *ngIf='!needSpinner'>
+            Update
+          </ng-container>
+          <ng-container *ngIf='needSpinner'>
+            <mat-spinner class='spinner' diameter=19></mat-spinner>
+          </ng-container>
+        </button>
+      </div>
+    </ng-container>
+
+  </form>
+</ng-container>

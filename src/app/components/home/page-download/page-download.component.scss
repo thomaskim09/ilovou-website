@@ -1,0 +1,71 @@
+section.download {
+  position: relative;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  background-size: cover;
+  -o-background-size: cover;
+  background-position: center;
+  background-image: url(../../../../assets/home-style/img/bg-download.jpg);
+  padding: 250px 0
+}
+
+section.download .download-content {
+  position: relative;
+  z-index: 1
+}
+
+section.download h2 {
+  margin-top: 0;
+  font-size: 1.6em !important;
+  line-height: 2em;
+}
+
+.icon-location-pin {
+  font-size: 0.8em;
+  margin-right: 0.3em;
+}
+
+.highlight {
+  font-size: 40px !important;
+  margin-bottom: 55px;
+}
+
+section.download .badges .badge-link {
+  margin-top: 25px;
+  display: block
+}
+
+section.download .badges .badge-link:last-child {
+  margin-bottom: 0
+}
+
+section.download .badges .badge-link img {
+  height: 60px
+}
+
+.inactive {
+  cursor: auto;
+}
+
+@media (min-width:768px) {
+  section.download .badges .badge-link {
+    display: inline-block;
+    margin-bottom: 0
+  }
+
+  section.download h2 {
+    margin-top: 0;
+    font-size: 60px !important;
+    line-height: 1.5em;
+  }
+
+  .icon-location-pin {
+    font-size: 40px;
+    margin-right: 0.3em;
+  }
+
+  .highlight {
+    font-size: 60px !important;
+  }
+
+}

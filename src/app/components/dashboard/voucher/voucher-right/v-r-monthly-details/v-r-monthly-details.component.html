@@ -1,0 +1,75 @@
+<div [formGroup]='form'>
+
+  <span class="card-title">Monthly Voucher Details</span>
+
+  <div formArrayName="monthlyDetails">
+    <ng-container *ngFor='let parent of monthlyDetailsControls.controls; let i=index'>
+      <div class='monthly-details' formGroupName='{{i}}'>
+        <div fxLayout='row' fxLayoutGap="1.5em">
+          <mat-form-field floatLabel='never' class='full-width-input'>
+            <input matInput placeholder="Title" formControlName='monthlyTitle' (focus)="hintSender(21)" />
+            <mat-hint *ngIf="parent.get('monthlyTitle').value?.length > 27">Item's name might not be able to show
+              all if too long
+            </mat-hint>
+            <mat-error *ngFor='let validation of validation_messages.monthlyTitle'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(parent, validation, 'monthlyTitle')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+          <ng-container>
+            <div fxLayout='row' fxLayoutGap="1em">
+              <ng-container *ngIf='i > 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='deleteMonthlyDetails(i)'>delete</mat-icon>
+              </ng-container>
+              <ng-container *ngIf='i === 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='addMonthlyDetails()'>add</mat-icon>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+
+        <div formArrayName="monthlyContent">
+          <ng-container *ngFor='let child of parent.controls.monthlyContent.controls; let j=index'>
+            <div formGroupName='{{j}}'>
+              <div fxLayout='row' fxLayoutGap="1.5em">
+                <mat-form-field floatLabel='never' fxFlex='35'>
+                  <input matInput placeholder="Name" formControlName='name' (focus)="hintSender(22)" />
+                  <mat-error *ngFor='let validation of validation_messages.name'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(child, validation, 'name')">
+                      {{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field floatLabel='never' fxFlex='20'>
+                  <input type='number' matInput placeholder="Unit" formControlName='unit' (focus)="hintSender(23)" />
+                  <mat-error *ngFor='let validation of validation_messages.unit'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(child, validation, 'unit')">
+                      {{validation.message}} </mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field floatLabel='never' fxFlex='20'>
+                  <span matPrefix>RM &nbsp;</span>
+                  <input type='number' matInput placeholder="Price" formControlName='price' (focus)="hintSender(24)" />
+                  <mat-error *ngFor='let validation of validation_messages.price'>
+                    <mat-error class="error-message" *ngIf="cfs.checkControl(child, validation, 'price')">
+                      {{validation.message}} </mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <div fxLayout='row' fxLayoutGap="1em">
+                  <ng-container *ngIf='j > 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='deleteMonthlyContent(i, j)'>delete
+                    </mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf='j === 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='addMonthlyContent(i)'>add</mat-icon>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+</div>

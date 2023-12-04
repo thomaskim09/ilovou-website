@@ -1,0 +1,34 @@
+<section class="cta">
+  <div class="cta-content container">
+    <div class="col-md-6">
+      <h2 class='title'>Stop Waiting<br>Start Vouching</h2>
+      <a (click)="scroll('#download')" class="btn-download page-scroll">Let's Get Started!</a>
+    </div>
+
+    <div class='col-md-6 card-container'>
+      <p class='sample'>sample</p>
+      <div class="ticket-card" *ngFor="let item of ticketList">
+        <div class="left-content">
+          <img class="voucher-image" [src]="item.voucherImage">
+        </div>
+        <div class="right-content">
+          <div class="primary">{{ item.voucherName }}</div>
+          <div class="secondary">
+            <span class="secondary-text"> {{ item.restaurantName }} </span>
+          </div>
+          <div class="price-content">
+            <span class="currency">RM</span>
+            <span class="new-price">{{ item.newPrice }}</span>
+            <span class="base-price">RM{{ item.basePrice }}</span>
+          </div>
+          <div>
+            <div class="get-button">
+              <span class="get-button-text">Get</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="overlay"></div>
+</section>

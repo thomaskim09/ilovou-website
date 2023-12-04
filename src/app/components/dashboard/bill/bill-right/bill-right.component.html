@@ -1,0 +1,57 @@
+  <div class="printable-content">
+    <div class="printable-area" id="printable-area">
+
+      <div fxLayout='column'>
+
+        <img class='logo' src="../../../../../assets/imgs/logo.png" alt="logo">
+
+        <div fxLayout='row' class='header-content'>
+          <div class='primary bill-to-col' fxFlex='20'> Bill To </div>
+          <div fxLayout='column' fxFlex='50'>
+            <div class='primary company-col'>{{com.companyName}}</div>
+            <div class='tertiary'>{{com.registrationNo}}</div>
+            <div class='tertiary'>{{com.contact}}</div>
+            <div class='tertiary'>{{com.address}}</div>
+          </div>
+          <div fxLayout='column' fxFlex='30'>
+            <div class='title-col'>Summary</div>
+            <div class='tertiary'>Start Date: {{bill.startDate}}</div>
+            <div class='tertiary'>End Date: {{bill.endDate}}</div>
+          </div>
+        </div>
+
+        <div fxLayout='row' class='header-row'>
+          <div class='header-col' fxFlex='20'>Date Time</div>
+          <div class='header-col' fxFlex='40'>Voucher's name</div>
+          <div class='header-col' fxFlex='20'>Price</div>
+          <div class='header-col' fxFlex='10'>Qty</div>
+          <div class='header-col' fxFlex='20'>Total</div>
+        </div>
+
+        <ng-container *ngFor='let item of bill.purchaseDetails; let i=index'>
+          <div fxLayout='row' [ngClass]="{'content-row': getEven(i), 'content-row2': !getEven(i)}">
+            <div class='content-col capital' fxFlex='20'>{{item.purchaseTime}}</div>
+            <div class='content-col' fxFlex='40'>{{item.voucherName}}</div>
+            <div class='content-col' fxFlex='20'>RM {{item.pricePerUnit}}</div>
+            <div class='content-col' fxFlex='10'>{{item.quantity}}</div>
+            <div class='content-col' fxFlex='20'>RM {{item.subtotalText}}</div>
+          </div>
+        </ng-container>
+
+        <div fxLayout='row'>
+          <div fxLayout='column' fxFlex='70'>
+            <div class='title-secondary'>Thank you for your business</div>
+          </div>
+          <div fxLayout='column' fxFlex='30'>
+            <div fxLayout='row' class='total-row'>
+              <div class='total-col'>Total</div>
+              <div class='total-col'>RM {{bill.total}}</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <button class='submit-button' (click)="printPDF()">Print PDF</button>

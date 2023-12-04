@@ -1,0 +1,46 @@
+<div [formGroup]='form'>
+
+  <span class="card-title">Group Voucher</span>
+
+  <div fxLayout='row'>
+    <mat-checkbox fxFlex='60' class='checkbox' color='primary' formControlName="groupVoucherModel"
+      (mouseenter)='hintSender(29)'>Turn On Group
+      Voucher</mat-checkbox>
+  </div>
+
+  <div formArrayName="groupVoucherDetails">
+    <ng-container *ngFor='let item of groupVoucherDetailsControls.controls; let i=index'>
+      <div formGroupName='{{i}}'>
+        <ng-container *ngIf='form.controls.groupVoucherModel.value'>
+          <div fxLayout='row' fxLayoutGap="1.5em">
+            <mat-form-field floatLabel='never' fxFlex='40'>
+              <input type='number' matInput placeholder="Quantity" formControlName='groupQuantity'
+                (focus)='hintSender(30)' />
+              <mat-error *ngFor='let validation of validation_messages.groupQuantity'>
+                <mat-error class="error-message" *ngIf="cfs.checkControl(item, validation, 'groupQuantity')">
+                  {{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+            <mat-form-field floatLabel='never' fxFlex='40'>
+              <span matPrefix>RM &nbsp;</span>
+              <input type='number' matInput placeholder="Price Per Unit" formControlName='groupPricePerUnit'
+                (focus)='hintSender(31)' />
+              <mat-error *ngFor='let validation of validation_messages.groupPricePerUnit'>
+                <mat-error class="error-message" *ngIf="cfs.checkControl(item, validation, 'groupPricePerUnit')">
+                  {{validation.message}}</mat-error>
+              </mat-error>
+            </mat-form-field>
+            <div fxLayout='row' fxLayoutGap="1em">
+              <ng-container *ngIf='i > 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='deleteGroupVoucherDetails(i)'>delete</mat-icon>
+              </ng-container>
+              <ng-container *ngIf='i === 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='addGroupVoucherDetails()'>add</mat-icon>
+              </ng-container>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </ng-container>
+  </div>
+</div>

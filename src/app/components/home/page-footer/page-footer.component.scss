@@ -1,0 +1,36 @@
+footer {
+  text-align: center
+}
+
+footer ul {
+  margin-bottom: 0
+}
+
+footer ul li a {
+  cursor: pointer;
+  font-size: 12px
+}
+
+footer,
+footer ul li a {
+  color: rgba(255, 255, 255, .3)
+}
+
+
+footer {
+  background-color: #222;
+  padding: 25px 0
+}
+
+footer p {
+  font-size: 1em;
+  margin: 0
+}
+
+footer ul li a.active,
+footer ul li a:active,
+footer ul li a:focus,
+footer ul li a:hover {
+  text-decoration: none;
+  color: #ff9566
+}

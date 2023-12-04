@@ -1,0 +1,155 @@
+<div [formGroup]='form'>
+  <span class="card-title">Let Customers Find Your Restaurant Easier</span>
+
+  <div class='address'>
+    <div fxLayout="row" fxLayoutGap="2em">
+      <mat-form-field floatLabel='never' class="state" fxFlex='50'>
+        <mat-select formControlName='state' placeholder="State">
+          <ngx-mat-select-search [formControl]="stateFilterCtrl" [placeholderLabel]="'Search'"
+            [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+          <mat-option *ngFor="let state of filteredState | async" [value]="state.id">
+            {{state.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.state'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'state')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never' class="city" fxFlex='50'>
+        <mat-select formControlName='city' placeholder="City">
+          <ngx-mat-select-search [formControl]="cityFilterCtrl" [placeholderLabel]="'Search'"
+            [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+          <mat-option *ngFor="let city of filteredCity| async" [value]="city.id">
+            {{city.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.city'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'city')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="2em">
+      <mat-form-field floatLabel='never' class="postcode" fxFlex='50'>
+        <mat-select formControlName='postcode' placeholder="Postcode">
+          <ngx-mat-select-search [formControl]="postcodeFilterCtrl" [placeholderLabel]="'Search'"
+            [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+          <mat-option *ngFor="let postcode of filteredPostcode | async" [value]="postcode.id">
+            {{postcode.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.postcode'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'postcode')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never' class="area" fxFlex='50'>
+        <mat-select formControlName='area' placeholder="Area">
+          <ngx-mat-select-search [formControl]="areaFilterCtrl" [placeholderLabel]="'Search'"
+            [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+          <mat-option *ngFor="let area of filteredArea | async" [value]="area.id">
+            {{area.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.area'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'area')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div fxLayout="row" fxLayoutGap="2em">
+      <mat-form-field floatLabel='never' class="street" fxFlex='50'>
+        <mat-select formControlName='street' placeholder="Street">
+          <ngx-mat-select-search [formControl]="streetFilterCtrl" [placeholderLabel]="'Search'"
+            [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+          <mat-option *ngFor="let street of filteredStreet | async" [value]="street.id">
+            {{street.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.street'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'street')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never' class="place" fxFlex='47'>
+        <mat-icon tappable *ngIf='form.value.place' class='input-icon' matSuffix (click)='clearPlace($event)'>
+          close </mat-icon>
+        <mat-select formControlName='place' placeholder="Place (Optional)" (focus)="hintSender(8)">
+          <ngx-mat-select-search [formControl]="placeFilterCtrl" [placeholderLabel]="'Search'"
+            [noEntriesFoundLabel]="'no matching found'">
+          </ngx-mat-select-search>
+          <mat-option *ngFor="let place of filteredPlace | async" [value]="place.id">
+            {{place.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.place'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'place')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+
+  <div fxLayout="row">
+    <mat-form-field floatLabel='never' class="full-width-input">
+      <input matInput placeholder="Full Address (For Map Navigation)" formControlName='fullAddress'
+        (focus)="hintSender(9)" />
+      <mat-error *ngFor='let validation of validation_messages.fullAddress'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'fullAddress')">
+          {{validation.message}}</mat-error>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row">
+    <mat-form-field floatLabel='never' class="full-width-input">
+      <input matInput placeholder="Short Area Description" formControlName='shortAreaName' (focus)="hintSender(10)" />
+      <mat-hint align="end">{{form.value.shortAreaName.length}}/30</mat-hint>
+      <mat-error *ngFor='let validation of validation_messages.shortAreaName'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'shortAreaName')">
+          {{validation.message}} </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div fxLayout="row">
+    <mat-form-field floatLabel='never' class="full-width-input" (mouseenter)="hintSender(11)">
+      <mat-icon tappable class='input-icon-location' matSuffix (click)='detectLocation()'>location_on</mat-icon>
+      <input matInput placeholder="Click the location icon to detect location -->" formControlName='locationTemp' />
+      <mat-error *ngFor='let validation of validation_messages.locationTemp'>
+        <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'locationTemp')">
+          {{validation.message}} </mat-error>
+      </mat-error>
+    </mat-form-field>
+  </div>
+
+  <div class='content'>
+    <span class="card-title">Restaurant Gallery</span>
+
+    <div fxLayout='row' fxLayoutGap='0.5em' class='gallery-slide'>
+      <ng-container *ngFor='let item of form.value.restaurantImageList; let i = index'>
+        <img class='uploaded-image' [src]="item" height="200">
+        <div class='image-box'>
+          <div tappable class="remove-button" (click)="removePicture(i)">
+            <mat-icon class="remove-icon">close</mat-icon>
+          </div>
+        </div>
+        <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+      </ng-container>
+      <ng-container *ngIf='form.value.restaurantImageList?.length < 2'>
+        <div tappable class="upload-box-empty" (click)="showImageCropModal()">
+          <mat-icon class="upload-icon">file_upload</mat-icon>
+        </div>
+        <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+      </ng-container>
+    </div>
+  </div>
+
+</div>

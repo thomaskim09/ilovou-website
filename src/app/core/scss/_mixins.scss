@@ -1,0 +1,32 @@
+@mixin my-gradient($gradient1, $gradient2) {
+  background: -webkit-linear-gradient(bottom right, $gradient1, $gradient2);
+  background: -o-linear-gradient(bottom right, $gradient1, $gradient2);
+  background: -moz-linear-gradient(bottom right, $gradient1, $gradient2);
+  background: linear-gradient(to bottom right, $gradient1, $gradient2);
+}
+
+@mixin my-shadow($color) {
+  -webkit-box-shadow: 0px 3px 20px 0px rgba($color, 0.6);
+  -moz-box-shadow: 0px 3px 20px 0px rgba($color, 0.6);
+  box-shadow: 0px 3px 20px 0px rgba($color, 0.6);
+}
+
+@mixin my-img-shadow() {
+  -webkit-box-shadow: 0px 3px 14px 1px rgba($GRADIENT_TOP, 0.6);
+  -moz-box-shadow: 0px 3px 14px 1px rgba($GRADIENT_TOP, 0.6);
+  box-shadow: 0px 3px 14px 1px rgba($GRADIENT_TOP, 0.6);
+}
+
+@mixin text-truncate-line($num) {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: $num;
+  -webkit-box-orient: vertical;
+}
+
+@mixin text-truncate() {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

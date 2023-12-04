@@ -1,0 +1,130 @@
+<mat-tab-group dynamicHeight [selectedIndex]="selected.value" (selectedIndexChange)="selected.setValue($event)"
+  class='tabContent' (selectedTabChange)='tabChange($event)'>
+  <mat-tab *ngFor="let tab of tabs; let i=index" [label]="tab" class='tab-body'>
+
+    <ng-container *ngIf="tab ==='Category'">
+      <form [formGroup]='form' autocomplete="off">
+        <div fxLayout='column'>
+
+          <div fxLayout='row'>
+            <span class="card-title" fxFlex='90'>Category List</span>
+
+            <ng-container *ngIf='categoryList.length !== 0'>
+              <button mat-icon-button (click)='toggleEditMode()' (mouseenter)='hintSender(14)'
+                [ngClass]="{'edit-button': !isEditMode, 'edit-button-active': isEditMode}">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </ng-container>
+
+            <button mat-icon-button (click)='addNewCategory()' class='edit-button' (mouseenter)='hintSender(15)'>
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+
+          <div class="container" dragula="CATEGORY_LIST" [(dragulaModel)]='categoryList'>
+            <ng-container *ngFor='let item of categoryList; let i = index'>
+              <div fxLayout='row'>
+                <span class='orderNumber'>{{i+1}}</span>
+                <div tappable class='list-item' (click)='viewCategory(item._id, item, i)' (mouseenter)='hintSender(16)'
+                  [ngStyle]="{'width': isEditMode ? '54%' : '87%'}">
+                  <div class='item-title-box'>
+                    <span [innerHTML]='item.categoryName'></span>
+                  </div>
+                </div>
+                <ng-container *ngIf='isEditMode'>
+                  <div fxLayout='row' fxLayoutGap='2em'>
+                    <mat-slide-toggle color='primary' [checked]="toggleStatus(item.status)" class='toggleHide'
+                      (change)='toggleCategoryStatus(item._id, $event)' [disabled]='disableToggle'></mat-slide-toggle>
+                    <mat-icon tappable class='list2-icon' (click)='removeCategory(item._id, item.categoryName)'>delete
+                    </mat-icon>
+                  </div>
+                </ng-container>
+                <button mat-icon-button (click)='viewCategoryTab(item._id, item.categoryName)' class='edit4-button'
+                  (mouseenter)='hintSender(17)'>
+                  <mat-icon class='edit-icon'>chevron_right</mat-icon>
+                </button>
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+      </form>
+
+      <ng-container *ngIf='isCategoryOrderChanged'>
+        <div fxLayout='row'>
+          <button [ngClass]="{'submit-button': !needSpinner, 'submit-button-inactive': needSpinner}"
+            (click)="updateCategoryOrder()" [disabled]='needSpinner'>
+            <ng-container *ngIf='!needSpinner'>
+              Update Category Order
+            </ng-container>
+            <ng-container *ngIf='needSpinner'>
+              <mat-spinner class='spinner' diameter=19></mat-spinner>
+            </ng-container>
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="tab !=='Category'" autocomplete="off">
+      <form [formGroup]='form'>
+        <div fxLayout='column'>
+
+          <div fxLayout='row'>
+            <span class="card-title" fxFlex='90'>Item List</span>
+
+            <ng-container *ngIf='foodList.length !== 0'>
+              <button mat-icon-button (click)='toggleEditMode()' (mouseenter)='hintSender(18)'
+                [ngClass]="{'edit-button': !isEditMode, 'edit-button-active': isEditMode}">
+                <mat-icon>edit</mat-icon>
+              </button>
+            </ng-container>
+
+            <button mat-icon-button (click)='addNewFood()' class='edit-button' (mouseenter)='hintSender(19)'>
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+
+          <div class="container" dragula="FOOD_LIST" [(dragulaModel)]='foodList'>
+            <ng-container *ngFor='let item of foodList; let i = index'>
+              <div fxLayout='row'>
+                <span class='orderNumber'>{{i+1}}</span>
+                <div tappable class='list-item' (click)='viewFood(item._id, i)' (mouseenter)='hintSender(20)'
+                  [ngStyle]="{'width': isEditMode ? '54%' : '87%'}">
+                  <div fxLayout='row'>
+                    <div class='item-title-box' [innerHTML]='item.itemName'></div>
+                    <div class='item-end'>RM {{item.itemPrice.toFixed(2)}}</div>
+                  </div>
+                </div>
+                <ng-container *ngIf='isEditMode'>
+                  <div fxLayout='row' fxLayoutGap='2em'>
+                    <mat-slide-toggle color='primary' [checked]=" toggleStatus(item.status)" class='toggleHide'
+                      (change)='toggleFoodStatus(item._id, $event)' [disabled]='disableToggle'>
+                    </mat-slide-toggle>
+                    <mat-icon tappable class='list-icon' (click)='removeFood(item._id, item.itemName)'>delete
+                    </mat-icon>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+          </div>
+
+        </div>
+      </form>
+
+      <ng-container *ngIf='isFoodOrderChanged'>
+        <div fxLayout='row'>
+          <button [ngClass]="{'submit-button': !needSpinner, 'submit-button-inactive': needSpinner}"
+            (click)="updateFoodOrder()" [disabled]='needSpinner'>
+            <ng-container *ngIf='!needSpinner'>
+              Update Food Order
+            </ng-container>
+            <ng-container *ngIf='needSpinner'>
+              <mat-spinner class='spinner' diameter=19></mat-spinner>
+            </ng-container>
+          </button>
+        </div>
+      </ng-container>
+    </ng-container>
+
+  </mat-tab>
+</mat-tab-group>

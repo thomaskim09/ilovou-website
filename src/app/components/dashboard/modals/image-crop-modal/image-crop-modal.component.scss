@@ -1,0 +1,40 @@
+@import "../../../../core/scss/variables";
+@import "../../../../core/scss/mixins";
+
+.image-icon {
+  font-size: 3em;
+  position: relative;
+  bottom: 0.7em;
+  left: 2.2em;
+  color: lightgrey;
+}
+
+.upload-box-empty {
+  border-radius: 5px;
+  border: 3px dashed $GREY_BORDER_LINE;
+  background: white;
+  height: 100%;
+  width: 100%;
+  padding-top: 35%;
+  padding-left: 0;
+  text-align: center;
+}
+
+.upload-text {
+  position: relative;
+  right: 1em;
+}
+
+.submit-button {
+  font-size: 1em;
+  margin-top: 1em;
+  padding: 0.3em 1.5em;
+  width: 100%;
+  background-color: $GRADIENT_TOP;
+  border-radius: 3em;
+  color: white;
+  font-weight: bold;
+  border: none;
+  z-index: 2;
+  @include my-img-shadow();
+}

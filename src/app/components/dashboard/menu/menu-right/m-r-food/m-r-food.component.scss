@@ -1,0 +1,118 @@
+@import "../../../../../core/scss/variables";
+@import "../../../../../core/scss/mixins";
+
+// Loading gif
+.loading-gif {
+  width: 3em;
+  height: 3em;
+  position: relative;
+  left: 47%;
+  top: 47%;
+}
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.card-title2 {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.card-title3 {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-top: 1.5em;
+}
+
+.fullWidthInput {
+  width: 100%;
+}
+
+.upload-box-empty {
+  border-radius: 5px;
+  margin-top: 0.5em;
+  border: 3px dashed $GREY_BORDER_LINE;
+  width: 9.4em;
+  height: 9.4em;
+  background: white;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.uploaded-image {
+  border-radius: 5px;
+  margin-top: 1em;
+  width: 9.4em;
+  height: 9.4em;
+  border: 1px solid $GREY_BORDER_LINE;
+  background: white;
+  object-fit: cover;
+}
+
+.image-box {
+  position: relative;
+}
+
+.edit-icon-box {
+  border-radius: 5px;
+  background-color: $GREY_BORDER_LINE;
+  width: 2.5em;
+  height: 2.5em;
+  position: absolute;
+  top: -9.4em;
+  right: 0em;
+  opacity: 0.7;
+  cursor: pointer;
+}
+
+.upload-icon {
+  font-size: 2em;
+  color: $GREY_ICON_WHITE;
+  position: relative;
+  left: 40%;
+  top: 38%;
+}
+
+.edit-icon {
+  font-size: 1.6em;
+  position: relative;
+  left: 17%;
+  top: 19%;
+  color: #5e5e5e;
+}
+
+.prefix {
+  color: grey;
+  margin-right: 0.5em;
+}
+
+.input-icon {
+  font-size: 1em;
+  color: grey;
+  padding-right: 0.2em;
+  cursor: pointer;
+}
+
+.clear-icon {
+  position: relative;
+  top: 0.7em;
+  color: $GREY_ICON_WHITE;
+  cursor: pointer;
+}
+
+.checkbox {
+  margin-top: 1em;
+}
+
+.parentRemark {
+  margin-top: 0.5em;
+}
+
+.remark_details {
+  position: relative;
+  bottom: 1em;
+}

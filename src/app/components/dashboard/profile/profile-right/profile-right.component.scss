@@ -1,0 +1,100 @@
+@import "../../../../core/scss/variables";
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.address {
+  margin-top: 1.6em;
+  margin-bottom: 1.6em;
+}
+
+.full-width-input {
+  width: 100%;
+}
+
+.location {
+  margin-top: 1.5em;
+  margin-bottom: 1em;
+}
+
+.input-icon {
+  font-size: 1em;
+  color: grey;
+  padding-right: 0.2em;
+  cursor: pointer;
+}
+
+.input-icon-location {
+  font-size: 1em;
+  color: $GRADIENT_TOP;
+  padding-right: 0.2em;
+  cursor: pointer;
+}
+
+.content {
+  position: relative;
+  top: 2.5em;
+}
+
+// Gallery
+.gallery-slide {
+  position: relative;
+  top: 1em;
+  overflow-x: auto;
+  margin-bottom: 2em;
+}
+
+.upload-box-empty {
+  border-radius: 5px;
+  margin-top: 0.5em;
+  border: 3px dashed $GREY_BORDER_LINE;
+  width: 9.4em;
+  height: 9.4em;
+  background: white;
+  object-fit: cover;
+  cursor: pointer;
+}
+
+.uploaded-image {
+  border-radius: 5px;
+  margin-top: 0.5em;
+  width: 9.4em;
+  height: 9.4em;
+  border: 1px solid $GREY_BORDER_LINE;
+  background: white;
+  object-fit: cover;
+}
+
+.image-box {
+  position: relative;
+}
+
+.upload-icon {
+  font-size: 2em;
+  color: $GREY_ICON_WHITE;
+  position: relative;
+  left: 40%;
+  top: 38%;
+}
+
+.remove-button {
+  width: 1.8em;
+  height: 1.8em;
+  border-radius: 2em;
+  color: $GREY_ICON_WHITE_DARKER;
+  background-color: $GREY_ICON_WHITE;
+  position: absolute;
+  right: -0.2em;
+  z-index: 1;
+  padding: 0;
+  cursor: pointer;
+}
+
+.remove-icon {
+  font-size: 1.5em;
+  position: relative;
+  top: 0.1em;
+  left: 0.1em;
+}

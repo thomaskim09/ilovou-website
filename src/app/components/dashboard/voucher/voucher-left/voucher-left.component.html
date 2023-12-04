@@ -1,0 +1,90 @@
+<form [formGroup]='form' autocomplete="off">
+
+  <div fxLayout='row'>
+    <span *ngIf='!isHistoryMode' class="card-title" fxFlex='95'>Vouchers List</span>
+    <span *ngIf='isHistoryMode' class="card-title" fxFlex='95'>History Vouchers List</span>
+
+    <button mat-icon-button (click)='toggleHistoryMode()'
+      [ngClass]="{'edit-button': !isHistoryMode, 'edit-button-active': isHistoryMode}">
+      <mat-icon>history</mat-icon>
+    </button>
+
+    <ng-container *ngIf='!isHistoryMode'>
+      <ng-container *ngIf='voucherList?.length !== 0'>
+        <button mat-icon-button (click)='toggleEditMode()'
+          [ngClass]="{'edit-button': !isEditMode, 'edit-button-active': isEditMode}">
+          <mat-icon>edit</mat-icon>
+        </button>
+      </ng-container>
+    </ng-container>
+
+
+    <ng-container *ngIf='voucherList?.length < maxVouchersCount && !isHistoryMode'>
+      <button mat-icon-button (click)='addNewVoucher()' (mouseenter)="hintSender(1)" class='edit-button'>
+        <mat-icon>add</mat-icon>
+      </button>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf='!isHistoryMode'>
+    <div class="container" dragula="VOUCHER_LIST" [(dragulaModel)]='voucherList'>
+      <ng-container *ngFor='let item of voucherList; let i = index'>
+        <div fxLayout='row'>
+          <span class='orderNumber'>{{i+1}}</span>
+          <div tappable class='list-item' (click)='viewVoucher(item.id)' (mouseenter)="voucherHintMessage(item.status)"
+            [ngStyle]="{'width': isEditMode ? '54%' : '87%'}">
+            <div fxLayout='row'>
+              <div class='item-title-box'>
+                <span *ngIf="checkIfStatusSO(item.status, item.soldOutTime)">(Sold Out) </span>
+                <span>{{item.name}}</span>
+              </div>
+              <div class='item-end'>RM {{item.price}}</div>
+            </div>
+          </div>
+          <ng-container *ngIf='isEditMode'>
+            <div fxLayout='row' fxLayoutGap='2em'>
+              <mat-slide-toggle color='primary' [checked]="toggleChecked(item.status)" class='toggleHide'
+                (change)='toggleVoucherStatus(item.id, $event, item)' [disabled]='disableToggle'>
+              </mat-slide-toggle>
+              <mat-icon tappable class='list-icon' (click)='removeVoucher(item.id, item.name)'>delete</mat-icon>
+            </div>
+          </ng-container>
+        </div>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <div *ngIf='isHistoryMode' class="container" (scroll)="onScroll($event)">
+    <ng-container *ngFor='let item of historyVoucherList; let i = index'>
+      <div fxLayout='row'>
+        <span class='orderNumber'>{{i+1}}</span>
+        <div tappable class='list-item' style="cursor: pointer;" (click)='viewVoucher(item.id)'
+          [ngStyle]="{'width': isEditMode ? '54%' : '87%'}">
+          <div fxLayout='row'>
+            <div class='item-title'>{{item.name}}</div>
+            <div class='item-end'>RM {{item.price}}</div>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+  <ng-container *ngIf='isOrderChanged'>
+    <div fxLayout='row'>
+      <button [ngClass]="{'submit-button': !needSpinner, 'submit-button-inactive': needSpinner}"
+        (click)="updateVoucherOrder()" [disabled]='needSpinner'>
+        <ng-container *ngIf='!needSpinner'>
+          Update Order
+        </ng-container>
+        <ng-container *ngIf='needSpinner'>
+          <mat-spinner class='spinner' diameter=19></mat-spinner>
+        </ng-container>
+      </button>
+    </div>
+  </ng-container>
+
+  <ng-container *ngIf='needInfiniteScroll && isHistoryMode && historyVoucherList.length'>
+    <mat-spinner class='spinner' [diameter]="40" *ngIf='!finished'></mat-spinner>
+  </ng-container>
+
+</form>

@@ -1,0 +1,243 @@
+<ng-container *ngIf='!voucher || needSpinner'>
+  <img class='loading-gif' src="../../../../../../assets/gifs/loading.svg" alt="">
+</ng-container>
+
+<ng-container *ngIf='voucher && !needSpinner'>
+  <div fxLayout='column'>
+    <span class="card-title">Vouchers Details</span>
+
+    <mat-list class='listContent'>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>Voucher Type</span>
+        <span class='subAnswer'>{{voucher.voucherType}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>Voucher Name</span>
+        <span class='subAnswer'>{{voucher.voucherName}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item class='autoHolder'>
+        <span class='subTitle'>Voucher Image</span>
+        <img class='uploaded-image' [src]="voucher.voucherImage">
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>New Price</span>
+        <span class='subAnswer'>RM {{voucher.newPrice}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>Normal Price</span>
+        <span class='subAnswer'>RM {{voucher.basePrice}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>Valid From</span>
+        <span class='subAnswer'>{{voucher.validFrom}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>Valid Until</span>
+        <span class='subAnswer'>{{voucher.validUntil}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>Start Time</span>
+        <span class='subAnswer'>{{voucher.startTime}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <span class='subTitle'>End Time</span>
+        <span class='subAnswer'>{{voucher.endTime}}</span>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <ng-container *ngIf='voucher.ruleDetails.length'>
+        <mat-list-item class='autoHolder'>
+          <span class='subTitle'>Voucher Rules</span>
+          <ul class='subAnswer'>
+            <ng-container *ngFor='let rule of voucher.ruleDetails'>
+              <li class='bulletItem'>{{rule}}</li>
+            </ng-container>
+          </ul>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+      <ng-container *ngIf='voucher.customRuleDetails.length'>
+        <mat-list-item class='autoHolder'>
+          <span class='subTitle'>Custom Rules</span>
+          <ul class='subAnswer'>
+            <ng-container *ngFor='let rule of voucher.customRuleDetails'>
+              <li class='bulletItem'>{{rule}}</li>
+            </ng-container>
+          </ul>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </ng-container>
+    </mat-list>
+
+    <ng-container *ngIf='voucher.restaurantList.length > 1'>
+      <span class="card-second-title">Available Branch</span>
+
+      <mat-list class='listContent2'>
+        <mat-divider></mat-divider>
+        <mat-list-item class='subAnswer3'>
+          <ul class='branch-ul'>
+            <ng-container *ngFor='let item of voucher.restaurantList'>
+              <li class='bulletItem'>{{item}}</li>
+            </ng-container>
+          </ul>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </ng-container>
+
+    <ng-container *ngIf='voucher.setDetails'>
+      <span class="card-second-title">Set Voucher Details</span>
+
+      <mat-list class='listSecondContent'>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class='subTitle'>Suitable Pax</span>
+          <span class='subAnswer'>{{voucher.suitablePax}} People</span>
+        </mat-list-item>
+        <ng-container *ngFor='let item of voucher.setDetails; let i=index'>
+          <mat-divider *ngIf='i==0'></mat-divider>
+          <mat-list-item>
+            <span class='subAnswer'>{{item.setTitle}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item *ngFor='let item2 of item.setContent'>
+            <div fxFlex='row'>
+              <span class='subAnswer2 left-padding' fxFlex='60'>{{item2.setName}}</span>
+              <span class='subAnswer2' fxFlex='20'>{{item2.setUnit}} Unit<span *ngIf='item2.setUnit>1'>s</span></span>
+              <span class='subAnswer2' fxFlex='20'>RM {{item2.setPrice}}</span>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-list>
+    </ng-container>
+
+    <ng-container *ngIf='voucher.quantityDetails'>
+      <span class="card-second-title">Quantity Voucher Details</span>
+
+      <mat-list class='listSecondContent'>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class='subTitle'>Quantity Unit</span>
+          <span class='subAnswer'>{{voucher.quantityUnit}} Unit<span *ngIf='voucher.quantityUnit>1'>s</span></span>
+        </mat-list-item>
+        <ng-container *ngFor='let item of voucher.quantityDetails; let i=index'>
+          <mat-divider *ngIf='i==0'></mat-divider>
+          <mat-list-item>
+            <span class='subAnswer'>{{item.quantityTitle}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item *ngFor='let item2 of item.quantityContent'>
+            <div fxFlex='row'>
+              <span class='subAnswer2' fxFlex='60'>{{item2.itemName}}</span>
+              <span class='subAnswer2' fxFlex='20'>RM {{item2.itemNewPrice}}</span>
+              <span class='subAnswer2' fxFlex='20'>RM {{item2.itemPreviousPrice}}</span>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-list>
+    </ng-container>
+
+    <ng-container *ngIf='voucher.minimumSpend'>
+      <span class="card-second-title">Cash Voucher Details</span>
+
+      <mat-list class='listSecondContent'>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class='subTitle'>Minimum Spend</span>
+          <span class='subAnswer'>RM{{voucher.minimumSpend}}</span>
+        </mat-list-item>
+      </mat-list>
+    </ng-container>
+
+    <ng-container *ngIf='voucher.monthlyDetails'>
+      <span class="card-second-title">Monthly Voucher Details</span>
+
+      <mat-list class='listSecondContent'>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <span class='subTitle'>Limit Per Day</span>
+          <span class='subAnswer'>{{voucher.limitPerDay}} Unit</span>
+        </mat-list-item>
+        <ng-container *ngFor='let item of voucher.monthlyDetails; let i=index'>
+          <mat-divider *ngIf='i==0'></mat-divider>
+          <mat-list-item>
+            <span class='subAnswer'>{{item.monthlyTitle}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+          <mat-list-item *ngFor='let item2 of item.monthlyContent'>
+            <div fxFlex='row'>
+              <span class='subAnswer2 left-padding' fxFlex='60'>{{item2.name}}</span>
+              <span class='subAnswer2' fxFlex='20'>{{item2.unit}} Unit<span *ngIf='item2.unit>1'>s</span></span>
+              <span class='subAnswer2' fxFlex='20'>RM {{item2.price}}</span>
+            </div>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-list>
+    </ng-container>
+
+    <ng-container *ngIf='voucher.groupVoucherDetails'>
+      <span class="card-second-title">Group Voucher Details</span>
+
+      <mat-list class='listSecondContent'>
+        <mat-divider></mat-divider>
+        <mat-list-item *ngFor='let item of voucher.groupVoucherDetails'>
+          <span>Buy &nbsp;</span>
+          <span class='subAnswer'>{{item.groupQuantity}} unit or above, &nbsp;</span>
+          <span>price per unit is &nbsp;</span>
+          <span class='subAnswer'>RM {{item.groupPricePerUnit}}</span>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+      </mat-list>
+    </ng-container>
+
+    <ng-container *ngIf='voucher.limitedQuantity || voucher.limitedQuantityPerUser ||
+  voucher.limitedEndTime || voucher.startSellingTime'>
+      <span class="card-second-title">Limit Control</span>
+
+      <mat-list class='listSecondContent'>
+        <ng-container *ngIf='voucher.limitedQuantity'>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <span class='subTitle2'>Limited Quantity</span>
+            <span class='subAnswer'>{{voucher.limitedQuantity}} unit<span
+                *ngIf='voucher.limitedQuantity>1'>s</span></span>
+          </mat-list-item>
+        </ng-container>
+        <ng-container *ngIf='voucher.limitedQuantityPerUser'>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <span class='subTitle2'>Limited Quantity Per User</span>
+            <span class='subAnswer'>{{voucher.limitedQuantityPerUser}} unit<span
+                *ngIf='voucher.limitedQuantityPerUser>1'>s</span></span>
+          </mat-list-item>
+        </ng-container>
+        <ng-container *ngIf='voucher.limitedEndTime'>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <span class='subTitle2'>Limited End Time</span>
+            <span class='subAnswer'>{{voucher.limitedEndTime}}</span>
+          </mat-list-item>
+        </ng-container>
+        <ng-container *ngIf='voucher.startSellingTime'>
+          <mat-divider></mat-divider>
+          <mat-list-item>
+            <span class='subTitle2'>Start Selling Time</span>
+            <span class='subAnswer'>{{voucher.startSellingTime}}</span>
+          </mat-list-item>
+          <mat-divider></mat-divider>
+        </ng-container>
+      </mat-list>
+    </ng-container>
+  </div>
+</ng-container>

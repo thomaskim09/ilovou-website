@@ -1,0 +1,52 @@
+<ng-container *ngIf='needCategoryForm'>
+  <form [formGroup]='form' autocomplete="off">
+    <div fxLayout='column'>
+      <span class="card-title">Category Details</span>
+
+      <mat-form-field floatLabel='never' fxFlex='50'>
+        <input matInput placeholder="Category's Name" formControlName='categoryName' />
+        <mat-error *ngFor='let validation of validation_messages.categoryName'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'categoryName')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never' fxFlex='50'>
+        <input matInput placeholder="Translated Name" formControlName='categoryNameTranslated'
+          (focus)='hintSender(44)' />
+      </mat-form-field>
+
+      <!-- Limit Sections -->
+      <span class="card-title2">Extra Controls</span>
+
+      <mat-checkbox fxFlex='60' class='checkbox' color='primary' formControlName="hasLimitedTimeSection"
+        (mouseenter)='hintSender(23)'>Limit Time Section</mat-checkbox>
+
+      <ng-container *ngIf='form.controls.hasLimitedTimeSection.value'>
+        <div fxLayout='row' fxLayoutGap="2em">
+          <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+            <span class='prefix' matPrefix>Start:</span>
+            <mat-icon class='input-icon' matSuffix (click)="openAtp('startSection')">access_time</mat-icon>
+            <input type='time' atp-time-picker arrowStyle="{'background': '#ff9566', 'color': 'white'}" matInput
+              placeholder="Start Time" formControlName="startSection">
+            <mat-error *ngFor='let validation of validation_messages.startSection'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'startSection')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+            <span class='prefix' matPrefix>End:</span>
+            <mat-icon class='input-icon' matSuffix (click)="openAtp('endSection')">access_time</mat-icon>
+            <input type='time' atp-time-picker arrowStyle="{'background': '#ff9566', 'color': 'white'}" matInput
+              placeholder="End Time" formControlName="endSection" [min]="form.get('startSection').value">
+            <mat-error *ngFor='let validation of validation_messages.endSection'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'endSection')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </ng-container>
+    </div>
+  </form>
+</ng-container>

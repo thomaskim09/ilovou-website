@@ -1,0 +1,131 @@
+@import "../../../../core/scss/variables";
+@import "../../../../core/scss/mixins";
+
+.printable-content {
+  margin: 16px;
+  background-color: #ffffff;
+
+  .printable-area {
+    height: auto;
+    width: 800px;
+    // height: 540px;
+    // width: 595px;
+
+    .logo {
+      width: 6em;
+      height: 3em;
+    }
+
+    .primary {
+      font-weight: bold;
+      padding: 0.7em 0.7em 0.2em 0.7em;
+    }
+
+    .bill-to-col {
+      height: 2.5em;
+      border-left: 4px solid $GRADIENT_TOP;
+    }
+
+    .company-col {
+      margin-bottom: 0.4em;
+    }
+
+    .secondary {
+      color: $GREY_TEXT_WHITE;
+      padding: 0.3em 0.7em;
+    }
+
+    .tertiary {
+      font-size: 1em;
+      color: $GREY_TEXT_WHITE;
+      padding: 0.3em 0.8em;
+    }
+
+    .primary-col {
+      font-weight: bold;
+      padding: 0.7em;
+    }
+
+    .header-content {
+      margin-bottom: 1.5em;
+    }
+
+    .title-col {
+      font-size: 1.5em;
+      background-color: $GRADIENT_TOP;
+      color: white;
+      text-transform: uppercase;
+      padding-left: 0.2em;
+      margin-bottom: 0.4em;
+      border: 1px solid $GRADIENT_LIGHT_DARKER;
+      padding: 0.3em 0.4em;
+    }
+
+    .header-row {
+      background-color: $GRADIENT_TOP;
+      color: white;
+      text-transform: uppercase;
+    }
+
+    .header-col {
+      border: 1px solid $GRADIENT_LIGHT_DARKER;
+      padding: 0.7em;
+    }
+
+    .content-row {
+      font-weight: 400;
+    }
+
+    .content-row2 {
+      font-weight: 400;
+      background-color: $GRADIENT_LIGHT;
+    }
+
+    .content-col {
+      border: 1px solid $GRADIENT_LIGHT_DARKER;
+      padding: 0.7em;
+    }
+
+    .capital {
+      text-transform: capitalize;
+    }
+
+    .total-row {
+      background-color: $GRADIENT_TOP;
+      color: white;
+      text-transform: uppercase;
+      font-size: 1.3em;
+      font-weight: 400;
+      border: 1px solid $GRADIENT_LIGHT_DARKER;
+    }
+
+    .total-col {
+      padding: 0.5em;
+    }
+
+    .title-secondary {
+      color: $GREY_TEXT_WHITE;
+      text-transform: uppercase;
+      font-size: 1.2em;
+      margin-top: 0.5em;
+      padding: 0.5em;
+    }
+  }
+}
+
+.submit-button {
+  background-color: $GRADIENT_TOP;
+  color: white;
+  font-weight: bold;
+  @include my-img-shadow();
+  font-size: 1em;
+  padding: 0.8em 1.5em;
+  width: 10em;
+  border: none;
+  border-radius: 3em;
+  z-index: 2;
+  position: absolute;
+  bottom: 9em;
+  left: 42%;
+  margin-top: 27em;
+}

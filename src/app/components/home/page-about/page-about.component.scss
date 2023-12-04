@@ -1,0 +1,59 @@
+@import "../../../core/scss/variables";
+@import "../../../core/scss/mixins";
+
+section {
+  padding: 100px 0
+}
+
+.about-content {
+  max-width: 330px;
+  text-align: center;
+  margin: 0 auto;
+
+  @media (min-width:992px) {
+    max-width: 450px;
+    text-align: left;
+    margin: 0;
+  }
+}
+
+.title {
+  font-size: 40px;
+}
+
+.description-box {
+  margin-top: 40px;
+}
+
+.description {
+  margin-top: 30px;
+  border-radius: 0.5em;
+  padding: 0.5em 1em;
+  @include my-img-shadow();
+}
+
+.subtitle {
+  font-size: 25px;
+  font-weight: 600;
+  margin-top: 0.5em;
+}
+
+.about-col {
+  text-align: center;
+  margin: 0 auto;
+}
+
+.about-image {
+  margin: 0 auto;
+  margin-top: 30px;
+  width: 330px;
+  height: 330px;
+  object-fit: cover;
+  border-radius: 0.5em;
+  @include my-img-shadow();
+
+  @media (min-width:992px) {
+    width: 600px;
+    height: 600px;
+  }
+}

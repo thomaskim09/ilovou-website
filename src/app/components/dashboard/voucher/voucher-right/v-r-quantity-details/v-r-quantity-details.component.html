@@ -1,0 +1,83 @@
+<div [formGroup]='form'>
+
+  <span class="card-title">Quantity Voucher Details</span>
+
+  <div formArrayName="quantityDetails">
+    <ng-container *ngFor='let quantityDetailsItem of quantityDetailsControls.controls; let i=index'>
+      <div class='quantityDetails' formGroupName='{{i}}'>
+        <div fxLayout='row' fxLayoutGap="1.5em">
+          <mat-form-field floatLabel='never' class='fullWidthInput'>
+            <input matInput placeholder="Quantity's Title" formControlName='quantityTitle' (focus)='hintSender(25)' />
+            <mat-hint *ngIf="quantityDetailsItem.get('quantityTitle').value?.length > 27">Item's name might not be able
+              to show all if too long
+            </mat-hint>
+            <mat-error *ngFor=' let validation of validation_messages.quantityTitle'>
+              <mat-error class="error-message"
+                *ngIf="cfs.checkControl(quantityDetailsItem, validation, 'quantityTitle')">
+                {{validation.message}} </mat-error>
+            </mat-error>
+          </mat-form-field>
+          <ng-container>
+            <div fxLayout='row' fxLayoutGap="1em">
+              <ng-container *ngIf='i > 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='deleteQuantityDetails(i)'>delete</mat-icon>
+              </ng-container>
+              <ng-container *ngIf='i === 0'>
+                <mat-icon tappable flex='5' class='clear-icon' (click)='addQuantityDetails()'>add</mat-icon>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+
+        <div formArrayName="quantityContent">
+          <ng-container
+            *ngFor='let quantityContentItem of quantityDetailsItem.controls.quantityContent.controls; let j=index'>
+            <div formGroupName='{{j}}'>
+              <div fxLayout='row' fxLayoutGap="1.5em">
+                <mat-form-field floatLabel='never' fxFlex='35'>
+                  <input matInput placeholder="Name" formControlName='itemName' (focus)='hintSender(22)' />
+                  <mat-error *ngFor='let validation of validation_messages.itemName'>
+                    <mat-error class="error-message"
+                      *ngIf="cfs.checkControl(quantityContentItem, validation, 'itemName')">
+                      {{validation.message}} </mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field floatLabel='never' fxFlex='20'>
+                  <span matPrefix>RM &nbsp;</span>
+                  <input type='number' matInput placeholder="Normal" formControlName='itemPreviousPrice'
+                    (focus)='hintSender(24)' />
+                  <mat-error *ngFor='let validation of validation_messages.itemPreviousPrice'>
+                    <mat-error class="error-message"
+                      *ngIf="cfs.checkControl(quantityContentItem, validation, 'itemPreviousPrice')">
+                      {{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <mat-form-field floatLabel='never' fxFlex='20'>
+                  <span matPrefix>RM &nbsp;</span>
+                  <input type='number' matInput placeholder="New" formControlName='itemNewPrice'
+                    (focus)='hintSender(26)' />
+                  <mat-error *ngFor='let validation of validation_messages.itemNewPrice'>
+                    <mat-error class="error-message"
+                      *ngIf="cfs.checkControl(quantityContentItem, validation, 'itemNewPrice')">
+                      {{validation.message}}</mat-error>
+                  </mat-error>
+                </mat-form-field>
+                <div fxLayout='row' fxLayoutGap="1em">
+                  <ng-container *ngIf='j > 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='deleteQuantityContent(i, j)'>delete
+                    </mat-icon>
+                  </ng-container>
+                  <ng-container *ngIf='j === 0'>
+                    <mat-icon tappable flex='5' class='clear-icon' (click)='addQuantityContent(i)'>add</mat-icon>
+                  </ng-container>
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+
+
+</div>

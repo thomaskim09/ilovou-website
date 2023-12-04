@@ -1,0 +1,19 @@
+<form [formGroup]="form" autocomplete="off">
+
+  <div fxLayout="row" fxLayout.sm="column" fxLayout.xs="column" fxLayoutGap="0.5em">
+
+    <div fxFlex="35" class="card-container">
+      <app-profile-left [form]='form'></app-profile-left>
+    </div>
+
+    <div fxFlex="35" class="card-container">
+      <app-profile-right [form]='form'></app-profile-right>
+    </div>
+
+    <div fxFlex="20" class="hint-card-container">
+      <app-hint [form]='form'></app-hint>
+    </div>
+
+  </div>
+
+</form>

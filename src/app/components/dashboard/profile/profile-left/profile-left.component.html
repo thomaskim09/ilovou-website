@@ -1,0 +1,201 @@
+<div [formGroup]='form'>
+  <span class="card-title">Tell Us About Your Restaurant</span>
+
+  <mat-form-field floatLabel='never' class="restaurant-name">
+    <input matInput placeholder="Restaurant's Name" formControlName='restaurantName' (focus)="hintSender(2)" />
+    <mat-hint *ngIf="form.get('restaurantName').value.length > 37">Restaurant's name might not be able to show all if
+      too long
+    </mat-hint>
+    <mat-error *ngFor='let validation of validation_messages.restaurantName'>
+      <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'restaurantName')">
+        {{validation.message}}</mat-error>
+    </mat-error>
+  </mat-form-field>
+
+  <div fxLayout="row" fxLayout.sm="row" fxLayout.xs="column" fxLayoutGap="2.5em" fxLayoutGap.sm="0.5em">
+    <div fxLayout="column" fxFlex="0 1 calc(60% + 2.5em)">
+      <mat-form-field floatLabel='never' class="restaurantType">
+        <mat-select formControlName="restaurantType" placeholder="Restaurant's Type" (focus)="hintSender(3)">
+          <ngx-mat-select-search [formControl]="resTypeFilterCtrl" [placeholderLabel]="'Search'"
+            [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+          <mat-option *ngFor="let resType of filteredResType | async" [value]="resType.id">
+            {{resType.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.restaurantType'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'restaurantType')">
+            {{validation.message}}</mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never' class="contact">
+        <input type="tel" matInput placeholder="Contact" formControlName='contact' (focus)="hintSender(4)" />
+        <mat-error *ngFor='let validation of validation_messages.contact'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'contact')">{{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never'>
+        <mat-select placeholder="Permissible food and drinks" formControlName="restriction" (focus)='hintSender(12)'>
+          <mat-option *ngFor="let item of restrictionType" [value]="item.value">{{item.name}}</mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.restriction'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'restriction')">
+            {{validation.message}} </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-checkbox class='check-box-area' fxFlex='30' class='checkbox' color='primary' formControlName="isVegetarian"
+        (mouseenter)='hintSender(1)'>Vegetarian Friendly</mat-checkbox>
+
+    </div>
+
+    <div fxLayout="column" (mouseenter)="hintSender(5)">
+      <label>Profile Image</label>
+      <ng-container *ngIf='!form.controls.restaurantImage.value'>
+        <div tappable class="upload-box-empty" (click)="showImageCropModal()">
+          <mat-icon class="upload-icon">file_upload</mat-icon>
+        </div>
+        <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+      </ng-container>
+
+      <ng-container *ngIf='form.controls.restaurantImage.value'>
+        <img class='uploaded-image' [src]="form.controls.restaurantImage.value" height="200">
+        <div class='image-box'>
+          <div tappable class="edit-icon-box" (click)="showImageCropModal()">
+            <mat-icon class="edit-icon">edit</mat-icon>
+          </div>
+        </div>
+        <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+      </ng-container>
+    </div>
+  </div>
+
+  <div class='content'>
+    <span class="second-title">Keywords For Your Restaurant</span>
+
+    <div fxLayout="row">
+      <mat-form-field floatLabel='never' fxFlex='100'>
+        <mat-select (focus)="hintSender(6)" formControlName='foodType' placeholder="Choose 5 Keywords"
+          [multiple]="true">
+          <ngx-mat-select-search [formControl]="foodTypeMultiFilterCtrl" [placeholderLabel]="'Search (Choose 5)'"
+            [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+          <mat-option *ngFor="let foodType of filteredFoodTypeMulti | async" [value]="foodType.id">
+            {{foodType.name}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngFor='let validation of validation_messages.foodType'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'foodType')">{{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class='content2'>
+    <span class="second-title">Routine Rest Day</span>
+
+    <div fxLayout='row' class='push-down'>
+      <mat-form-field floatLabel='never' fxFlex="100">
+        <span class='prefix' matPrefix *ngIf="form.value.restDayModel.length && form.value.restDayModel[0] !== '0'">Rest
+          Day:</span>
+        <mat-select placeholder="Which days of week (Optional)" formControlName="restDayModel" multiple>
+          <ng-container *ngFor='let day of days; let i=index'>
+            <mat-option value={{i+1}}>
+              {{day}}
+            </mat-option>
+          </ng-container>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <div class='content2' fxLayout='column' fxLayoutGap="1em">
+    <span class="second-title">Business Hour</span>
+
+    <div formArrayName='fixedBusinessHours' class='push-down'>
+      <label class='sub-title'>Fixed Time (Shortcuts)</label>
+      <ng-container *ngFor='let item of form.controls.fixedBusinessHours.controls; let i=index'>
+        <div [formGroupName]='i'>
+          <div fxLayout='row' fxLayoutGap="2em">
+            <mat-form-field floatLabel='never' fxFlex='41'>
+              <span class='prefix' matPrefix>Start:</span>
+              <mat-icon class='input-icon' matSuffix (click)="openFixedOpenTimePicker(i, $event)">access_time</mat-icon>
+              <input type='time' matInput placeholder="Fixed Open Time" formControlName="fixedOpenTime"
+                (focus)="openFixedOpenTimePicker(i, $event); " onkeypress="return false;" autocomplete="off"
+                tabindex="-1">
+            </mat-form-field>
+
+            <mat-form-field floatLabel='never' fxFlex='41'>
+              <span class='prefix' matPrefix>End:</span>
+              <mat-icon tappable class='input-icon' matSuffix (click)="openFixedCloseTimePicker(i, $event)">access_time
+              </mat-icon>
+              <input type='time' matInput placeholder="Fixed Close Time" formControlName="fixedCloseTime"
+                (focus)="openFixedCloseTimePicker(i, $event)" onkeypress="return false;" autocomplete="off"
+                tabindex="-1">
+            </mat-form-field>
+
+            <div fxLayout='row'>
+              <ng-container *ngIf='i > 0'>
+                <mat-icon tappable fxFlex='5' class='clear-icon-fixed' (click)='deleteFixedSection(i)'>delete</mat-icon>
+              </ng-container>
+              <ng-container *ngIf='i === 0'>
+                <mat-icon tappable fxFlex='5' class='clear-icon-fixed' (click)='addFixedSection()'>add</mat-icon>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div formArrayName="businessHours">
+      <ng-container *ngFor='let day of shortDays; let i=index'>
+        <div [formGroupName]="i">
+          <div fxLayout='row' fxLayoutGap="0.5em" class='push-down'>
+            <label class='day'>{{day}}</label>
+
+            <div formArrayName="section" fxFlex='89'>
+              <ng-container
+                *ngFor='let item of form.controls.businessHours.controls[i].controls.section.controls; let j=index'>
+                <div formGroupName='{{j}}' fxLayout='row' fxLayoutGap="1.1em">
+                  <mat-form-field floatLabel='never' fxFlex='45'>
+                    <span class='prefix' matPrefix>Start:</span>
+                    <input id={{i+1}} type='time' atp-time-picker
+                      arrowStyle="{'background': '#ff9566', 'color': 'white'}" formControlName="openTime" matInput
+                      placeholder="Open Time" onkeypress="return false;" autocomplete="off">
+                    <mat-error *ngFor='let validation of validation_messages.openTime'>
+                      <mat-error class="error-message" *ngIf="cfs.checkControl(item, validation, 'openTime')">
+                        {{validation.message}} </mat-error>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel='never' fxFlex='45'>
+                    <span class='prefix' matPrefix>End:</span>
+                    <input id={{i+1}} type='time' atp-time-picker
+                      arrowStyle="{'background': '#ff9566', 'color': 'white'}" formControlName="closeTime" matInput
+                      placeholder="Close Time" onkeypress="return false;" autocomplete="off">
+                    <mat-error *ngFor='let validation of validation_messages.closeTime'>
+                      <mat-error class="error-message" *ngIf="cfs.checkControl(item, validation, 'closeTime')">
+                        {{validation.message}} </mat-error>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <div fxLayout='row'>
+                    <ng-container *ngIf='j > 0'>
+                      <mat-icon tappable fxFlex='5' class='clear-icon' (click)='deleteSection(i, j)'>delete</mat-icon>
+                    </ng-container>
+                    <ng-container *ngIf='j === 0'>
+                      <mat-icon tappable fxFlex='5' class='clear-icon' (click)='addSection(i)'>add</mat-icon>
+                    </ng-container>
+                  </div>
+                </div>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+</div>

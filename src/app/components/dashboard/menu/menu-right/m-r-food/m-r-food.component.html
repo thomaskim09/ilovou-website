@@ -1,0 +1,262 @@
+<ng-container *ngIf='needSpinner'>
+  <img class='loading-gif' src="../../../../../../assets/gifs/loading.svg" alt="">
+</ng-container>
+
+<ng-container *ngIf='needFoodForm && !needSpinner'>
+  <form [formGroup]='form' autocomplete="off">
+
+    <div fxLayout='column'>
+
+      <!-- Main Content Sections -->
+      <span class="card-title">Item Details</span>
+
+      <mat-form-field floatLabel='never'>
+        <input matInput placeholder="Item's Name" formControlName='itemName' />
+        <mat-hint *ngIf="form.get('itemName').value?.length > 21">Item's name might not be able to show all if too long
+        </mat-hint>
+        <mat-error *ngFor='let validation of validation_messages.itemName'>
+          <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'itemName')">{{validation.message}}
+          </mat-error>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field floatLabel='never'>
+        <input matInput placeholder="Translated Name" formControlName='itemNameTranslated' (focus)='hintSender(44)' />
+        <mat-hint *ngIf="form.get('itemNameTranslated').value?.length > 13">Item's name might not be able to show all if
+          too long</mat-hint>
+      </mat-form-field>
+
+      <div fxLayout="row" fxLayoutGap="2.5em">
+        <div fxLayout="column" fxFlex="46">
+          <mat-form-field floatLabel='never'>
+            <mat-select formControlName="categoryId" placeholder="Category" (focus)='hintSender(24); detectChanges()'>
+              <ngx-mat-select-search [formControl]="categoryFilterCtrl" [placeholderLabel]="'Search'"
+                [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+              <mat-option *ngFor="let item of filteredCategory | async" [value]="item.id" [innerHTML]='item.name'>
+              </mat-option>
+            </mat-select>
+            <mat-error *ngFor='let validation of validation_messages.remarkAuto'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'remarkAuto')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never'>
+            <span matPrefix>RM &nbsp;</span>
+            <input type="number" matInput placeholder="Price" formControlName='itemPrice' />
+            <mat-error *ngFor='let validation of validation_messages.itemPrice'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'itemPrice')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never'>
+            <input matInput placeholder="Short Name (Optional)" formControlName='itemShortName'
+              (focus)='hintSender(25)' />
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never'>
+            <input matInput placeholder="Item Code (Optional)" formControlName='itemCode' (focus)='hintSender(26)' />
+          </mat-form-field>
+        </div>
+
+        <div fxLayout="column" (mouseenter)='hintSender(27)'>
+          <label>Item Image</label>
+          <ng-container *ngIf='!form.controls.itemImage.value'>
+            <div tappable class="upload-box-empty" (click)="showImageCropModal()">
+              <mat-icon class="upload-icon">file_upload</mat-icon>
+            </div>
+            <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+          </ng-container>
+
+          <ng-container *ngIf='form.controls.itemImage.value'>
+            <img class='uploaded-image' [src]="form.controls.itemImage.value" height="200">
+            <div class='image-box'>
+              <div tappable class="edit-icon-box" (click)="showImageCropModal()">
+                <mat-icon class="edit-icon">edit</mat-icon>
+              </div>
+            </div>
+            <input hidden type="file" accept="image/*" #file (change)="onSelectFile($event)">
+          </ng-container>
+        </div>
+      </div>
+
+
+      <!-- Limit Sections -->
+      <span class="card-title2">Extra Controls</span>
+
+      <mat-checkbox fxFlex='60' class='checkbox' color='primary' formControlName="hasLimitedTimeSection"
+        (mouseenter)='hintSender(28)'>Limit Time Section</mat-checkbox>
+
+      <ng-container *ngIf='form.controls.hasLimitedTimeSection.value'>
+        <div fxLayout='row' fxLayoutGap="2em">
+          <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+            <span class='prefix' matPrefix>Start:</span>
+            <mat-icon class='input-icon' matSuffix (click)="openAtp('startSection')">access_time</mat-icon>
+            <input type='time' atp-time-picker arrowStyle="{'background': '#ff9566', 'color': 'white'}" matInput
+              placeholder="Start Time" formControlName="startSection">
+            <mat-error *ngFor='let validation of validation_messages.startSection'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'startSection')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never' class='picker' fxFlex='46'>
+            <span class='prefix' matPrefix>End:</span>
+            <mat-icon class='input-icon' matSuffix (click)="openAtp('startSection')">access_time</mat-icon>
+            <input type='time' atp-time-picker arrowStyle="{'background': '#ff9566', 'color': 'white'}" matInput
+              placeholder="End Time" formControlName="endSection" [min]="form.get('startSection').value">
+            <mat-error *ngFor='let validation of validation_messages.endSection'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'endSection')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </ng-container>
+
+      <mat-checkbox fxFlex='60' class='checkbox' color='primary' formControlName="hasRemarkPopUp"
+        (mouseenter)='hintSender(29)'>Need Remarks</mat-checkbox>
+
+      <ng-container *ngIf='form.controls.hasRemarkPopUp.value'>
+        <div fxLayout='column' fxLayoutGap='-1em'>
+          <mat-form-field floatLabel='never' fxFlex='grow'>
+            <input matInput placeholder="Description (Optional)" formControlName='description'
+              (focus)='hintSender(30)' />
+          </mat-form-field>
+
+          <mat-form-field floatLabel='never' fxFlex='grow'>
+            <input matInput placeholder="Description Translated (Optional)" formControlName='descriptionTranslated'
+              (focus)='hintSender(44)' />
+          </mat-form-field>
+        </div>
+
+
+        <mat-checkbox fxFlex='60' class='checkbox' color='primary' formControlName="hasFixedRemark"
+          (mouseenter)='hintSender(31)'>Remark Short Cut</mat-checkbox>
+
+        <ng-container *ngIf='form.controls.hasFixedRemark.value'>
+          <mat-form-field floatLabel='never' fxFlex='grow'>
+            <mat-select formControlName="remarkAuto" placeholder="Remark Short Cuts" [multiple]="true">
+              <ngx-mat-select-search [formControl]="remarkFilterCtrl" [placeholderLabel]="'Search'"
+                [noEntriesFoundLabel]="'no matching found'"></ngx-mat-select-search>
+              <mat-option *ngFor="let item of filteredRemark | async" [value]="item.id">
+                {{item.name}}
+              </mat-option>
+            </mat-select>
+            <mat-error *ngFor='let validation of validation_messages.remarkAuto'>
+              <mat-error class="error-message" *ngIf="cfs.checkControl(form, validation, 'remarkAuto')">
+                {{validation.message}}</mat-error>
+            </mat-error>
+          </mat-form-field>
+        </ng-container>
+
+        <!-- Different Remarks Sections -->
+        <mat-checkbox fxFlex='60' class='checkbox' color='primary' formControlName="hasDifferentRemark"
+          (mouseenter)='hintSender(32)'>Custom Remark</mat-checkbox>
+
+        <ng-container *ngIf='form.value.hasDifferentRemark'>
+          <div formArrayName="remarkManual" fxLayout='column' fxLayoutGap="0em">
+            <ng-container *ngFor='let parentItem of form.controls.remarkManual.controls; let i=index'>
+              <div class='parentRemark' formGroupName='{{i}}' fxLayout='column' fxLayoutGap="-0.7em">
+                <div fxLayout='row' fxLayoutGap="1em">
+
+                  <mat-form-field floatLabel='never' fxFlex='30'>
+                    <input matInput placeholder="Remark's Title" formControlName='remarkTitle'
+                      (focus)='hintSender(33)' />
+                    <mat-error *ngFor='let validation of validation_messages.remarkTitle'>
+                      <mat-error class="error-message" *ngIf="cfs.checkControl(parentItem, validation, 'remarkTitle')">
+                        {{validation.message}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel='never' fxFlex='30'>
+                    <input matInput placeholder="Translated Name" formControlName='remarkTitleTranslated'
+                      (focus)='hintSender(44)' />
+                  </mat-form-field>
+
+                  <mat-form-field floatLabel='never' fxFlex='20'>
+                    <mat-select placeholder="Type" formControlName="remarkType" (focus)='hintSender(34)'>
+                      <ng-container *ngFor='let item of typeList'>
+                        <mat-option value={{item.value}}>
+                          {{item.name}}
+                        </mat-option>
+                      </ng-container>
+                    </mat-select>
+                    <mat-error *ngFor='let validation of validation_messages.remarkType'>
+                      <mat-error class="error-message" *ngIf="cfs.checkControl(parentItem, validation, 'remarkType')">
+                        {{validation.message}}</mat-error>
+                    </mat-error>
+                  </mat-form-field>
+
+                  <ng-container>
+                    <div fxLayout='row' fxLayoutGap="1em">
+                      <ng-container *ngIf='i > 0'>
+                        <mat-icon tappable flex='5' class='clear-icon' (click)='deleteParent(i)'>delete</mat-icon>
+                      </ng-container>
+                      <ng-container *ngIf='i === 0'>
+                        <mat-icon tappable flex='5' class='clear-icon' (click)='addParent()'>add</mat-icon>
+                      </ng-container>
+                    </div>
+                  </ng-container>
+                </div>
+
+                <div formArrayName="remarkDetails" fxLayout='column' fxLayoutGap="-1em">
+                  <ng-container
+                    *ngFor='let childrenItem of form.controls.remarkManual.controls[i].controls.remarkDetails.controls; let j=index'>
+                    <div formGroupName='{{j}}' fxLayout='column' fxLayoutGap="0em">
+                      <div fxLayout='row' fxLayoutGap="1.5em">
+                        <mat-form-field floatLabel='never' fxFlex='40'>
+                          <input matInput placeholder="Name" formControlName='remarkName' (focus)='hintSender(35)' />
+                          <mat-error *ngFor='let validation of validation_messages.remarkName'>
+                            <mat-error class="error-message"
+                              *ngIf="cfs.checkControl(childrenItem, validation, 'remarkName')">
+                              {{validation.message}}</mat-error>
+                          </mat-error>
+                        </mat-form-field>
+
+                        <mat-form-field floatLabel='never' fxFlex='40'>
+                          <input matInput placeholder="Translated Name" formControlName='remarkNameTranslated'
+                            (focus)='hintSender(44)' />
+                        </mat-form-field>
+
+                        <div fxLayout='row' fxLayoutGap="1em">
+                          <ng-container *ngIf='j > 0'>
+                            <mat-icon tappable flex='5' class='clear-icon' (click)='deleteChildren(i, j)'>delete
+                            </mat-icon>
+                          </ng-container>
+                          <ng-container *ngIf='j === 0'>
+                            <mat-icon tappable flex='5' class='clear-icon' (click)='addChildren(i)'>add</mat-icon>
+                          </ng-container>
+                        </div>
+                      </div>
+
+                      <div class='remark_details' fxLayout='row' fxLayoutGap="1.5em">
+                        <mat-form-field floatLabel='never' fxFlex='40'>
+                          <input matInput placeholder="Short Name (Optional)" formControlName='remarkShortName'
+                            (focus)='hintSender(36)' />
+                        </mat-form-field>
+
+                        <mat-form-field floatLabel='never' fxFlex='40'>
+                          <span matPrefix>+ RM &nbsp;</span>
+                          <input type='number' matInput placeholder="Price" formControlName='remarkPrice'
+                            (focus)='hintSender(37)' />
+                          <mat-error *ngFor='let validation of validation_messages.remarkPrice'>
+                            <mat-error class="error-message"
+                              *ngIf="cfs.checkControl(childrenItem, validation, 'remarkPrice')">
+                              {{validation.message}}</mat-error>
+                          </mat-error>
+                        </mat-form-field>
+                      </div>
+                    </div>
+                  </ng-container>
+                </div>
+              </div>
+            </ng-container>
+          </div>
+        </ng-container>
+
+      </ng-container>
+
+    </div>
+  </form>
+</ng-container>

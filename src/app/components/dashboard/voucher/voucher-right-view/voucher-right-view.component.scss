@@ -1,0 +1,90 @@
+@import "../../../../core/scss/variables";
+@import "../../../../core/scss/mixins";
+
+// Loading gif
+.loading-gif {
+  width: 3em;
+  height: 3em;
+  position: relative;
+  left: 47%;
+  top: 47%;
+}
+
+.card-title {
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+.listContent {
+  margin-top: 2em;
+}
+
+.listContent2 {
+  margin-top: 1em;
+}
+
+.subTitle {
+  width: 40%;
+}
+
+.subAnswer {
+  font-weight: 500;
+}
+
+.subAnswer2 {
+  font-weight: 400;
+}
+
+.subAnswer3 {
+  font-weight: 500;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.left-padding {
+  padding-left: 1.5em;
+}
+
+.uploaded-image {
+  border-radius: 5px;
+  width: 9.4em;
+  height: 9.4em;
+  border: 1px solid $GREY_BORDER_LINE;
+  background: white;
+  object-fit: cover;
+  margin-top: 1.4em;
+  margin-bottom: 1.4em;
+}
+
+.autoHolder {
+  height: auto;
+}
+
+.bulletItem {
+  margin-bottom: 0.3em;
+}
+
+.card-second-title {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin-top: 2.5em;
+}
+
+.listSecondContent {
+  margin-top: 1em;
+}
+
+.subTitle2 {
+  width: 45%;
+}
+
+.full-image {
+  object-fit: cover;
+  margin: auto;
+  margin-top: 35%;
+  opacity: 0.5;
+}
+
+.branch-ul {
+  padding-left: 1em;
+}

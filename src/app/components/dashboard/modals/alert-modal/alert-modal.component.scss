@@ -1,0 +1,48 @@
+@import "../../../../core/scss/variables";
+@import "../../../../core/scss/mixins";
+
+.title {
+  font-weight: 500;
+  font-size: 1.3em;
+  padding-bottom: 0.5em;
+  padding-left: 0.5em;
+}
+
+.message {
+  font-weight: 400;
+  font-size: 1em;
+  padding-bottom: 2em;
+  padding-left: 0.7em;
+}
+
+.sub-message {
+  font-weight: 400;
+  font-size: 1em;
+  padding-bottom: 0.5em;
+}
+
+.button-row {
+  float: right;
+}
+
+.yesButton {
+  font-size: 1em;
+  padding: 0.5em 1.3em;
+  width: 7em;
+  background-color: $GRADIENT_TOP;
+  border-radius: 3em;
+  @include my-img-shadow();
+  color: white;
+  font-weight: bold;
+  border: none;
+}
+
+.noButton {
+  font-size: 1em;
+  padding: 0.5em 1.3em;
+  width: 7em;
+  background-color: $GREY_BODY_BACKGROUND;
+  color: $GREY_TEXT_WHITE_DARKER;
+  border-radius: 3em;
+  border: none;
+}
